@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="zeero framework, zeero fw, php framework, zeero, zeero php">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>
+		Zeero Framework - MVC
+	</title>
+
+	<link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/all.min.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/style.min.css">
+	<link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/v4-shims.min.css">
+
+	<link rel="stylesheet" href="../assets/css/highlight/atom-one-dark-reasonable.min.css">
+
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+	<header class="px-5 p-2" id="pg-header">
+		<div class="d-flex align-items-center justify-content-between">
+			<h4 id="title">ZEERO
+				<span class="bt-text">FRAMEWORK</span>
+			</h4>
+			<div>
+				<a href="#" class="btn">
+					<i class="fa fa-github"></i>
+					<span class="bt-text">
+						REPOSITÓRIO
+					</span>
+				</a>
+				<a href="#" class="btn">
+					<i class="fa fa-code"></i>
+					<span class="bt-text">
+						DESENVOLVEDOR
+					</span>
+				</a>
+				<button class="btn" id="barsBtn" onclick="openSidebar()">
+					<i class="fa fa-bars"></i>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="p-2 text-center" id="sections">
+		<a href="../index.html" class="sct" id="active">INTRODUÇÃO</a>
+		<a href="../routing/routes.html" class="sct">ROUTING</a>
+		<a href="../database/zeero-orm.html" class="sct">DATABASE</a>
+		<a href="../core/facades.html" class="sct">CORE</a>
+		<a href="../zeero-cli.html" class="sct">ZCLI</a>
+
+
+	</div>
+
+	<section class="" id="sct-content">
+
+		<div class="row m-0" id="grid">
+			<!-- sidebar -->
+			<div class="col col-12 col-md-2 col-lg-2" id="sidebar">
+				<div class="p-1">
+
+					<div id="onMobile" class="navbar mb-3 text-muted">
+						<h4 class="m-0">ZEERO DOCS</h4>
+						<button class="btn text-muted" onclick="openSidebar()">
+							<i class="fa fa-times fa-2x"></i>
+						</button>
+					</div>
+
+
+
+					<a href="../index.html" class="sct">Instalação</a>
+
+					<a href="mvc.html" id="active">MVC</a>
+
+					<a href="twig.html">Twig</a>
+
+				</div>
+			</div>
+
+			<!-- content -->
+			<div class="col col-12 col-lg-10 col-md-10" id="content-div">
+
+				<div class="px-3 mt-2 content">
+					<h5 class="text-muted text-uppercase mb-3"> Model View Controller </h5>
+
+					<div class="px-1 mt-4">
+
+						<p> MVC é um <b>Padrão de Arquitectura</b> de Software muito usado em Desenvolvimento Web,
+							permite <b>divisão de responsablidades</b> dos componentes de um módulo ou aplicação. Zeero
+							seguindo esse padrão , apresenta um estrutura de pastas de fácil entendimento e uso. </p>
+
+						<ul id="dir_entries" class="mt-5 list-group">
+							<li class="list-group-item"><b> <i class="fa fa-folder"></i> Controllers</b> contém os
+								<i>controllers</i>, incluíndo os
+								<i>requests</i> e <i>commands</i>. </li>
+							<li class="list-group-item"><i class="fa fa-folder"></i> <b>DataBase</b> contém as
+								<i>migrations</i>, json resources e os <i>seeds</i>.
+							</li>
+							<li class="list-group-item"><i class="fa fa-folder"></i> <b>Logs</b> contém arquivos locais
+								de <i>logs</i> </li>
+							<li class="list-group-item"><i class="fa fa-folder"></i> <b>Models</b> contém os
+								<i>models</i> </li>
+							<li class="list-group-item"><i class="fa fa-folder"></i> <b>public</b> directório público
+							</li>
+							<li class="list-group-item"><i class="fa fa-folder"></i> <b>Routes</b> contém o arquivo de
+								definição de rotas </li>
+							<li class="list-group-item"><i class="fa fa-folder"></i> <b>Views</b> contém as <i>views</i>
+								e todos arquivos
+								relacionados a templates</li>
+						</ul>
+						<br>
+
+						<h5 id="controller" class="ttl text-muted">
+							Controller
+						</h5>
+						<br>
+
+						<div class="px-1">
+							<p>Os Controllers são geralmente classes que recebem informações externas , processam e
+								retornam uma resposta. </p>
+							<p>Abaixo podemos ver exemplo de um controller:</p>
+
+							<img src="../assets/img/controller.png">
+							<br>
+						</div>
+
+						<br>
+						<h5 id="model" class="ttl text-muted mt-3 mb-4">Model</h5>
+
+						<p>Os Modelos são classes que representam uma tabela na base de dados, estas classes se extendem
+							de
+							<i>Zeero\DataBase\ORM\Model</i>, uma classe que disponibliza para cada modelo um conjunto de
+							metódos que facilitam
+							a manipulação e persistência de dados.
+						</p>
+						<p>Classes Modelos apresentam quatro atributos protegidos (protected) : </p>
+						<ul class="list-group my-3">
+							<li class="list-group-item"><b>attributes</b> - um array contendo os campos da tabela</li>
+							<li class="list-group-item"><b>primary_key</b> - uma string que corresponde ao nome do campo
+								que é chave
+								primária na
+								tabela </li>
+							<li class="list-group-item"><b>foreign_keys</b> - um array usado para definir as chaves
+								estrangeiras que a
+								tabela
+								possui ( este attributo
+								é opcional ). </li>
+							<li class="list-group-item"><b>table</b> - uma string que corresponde ao nome da tabela que
+								o modelo representa
+								(usado para modelos que o nome não conscide com o nome da tabela) .</li>
+						</ul>
+
+						<br>
+						<p>Abaixo podemos ver exemplo de um modelo:</p>
+						<img src="../assets/img/model.png" alt="">
+						<br>
+
+
+						<h5 id="view" class="ttl text-muted mt-5 mb-4">VIEW</h5>
+
+						<p>O directório <i>Views</i> contém os arquivos relacionados com o <strong>Twig</strong> que é o
+							<i>Engine Template</i>
+							padrão do Zeero. </p>
+
+						<h6>Estrutura da pasta <i>Views:</i> </h6> <br>
+
+						<ul id="dir_entries" class="list-group">
+							<li class="list-group-item"><i class="fa fa-folder"></i> <b>helpers</b> - arquivos que
+								incluem dependências
+								comuns entre templates. </li>
+							<li class="list-group-item"><i class="fa fa-folder"></i> <b>renders</b> - templates
+								dinâmicos ( que usam dados
+								externos ). </li>
+							<li class="list-group-item"><i class="fa fa-folder"></i> <b>template</b> - templates
+								estáticos ou bases da
+								outros templates. </li>
+							<li class="list-group-item"><i class="fa fa-file-alt"></i> <b>filters.php</b> - definição de
+								novos filtros Twig.
+							</li>
+							<li class="list-group-item"><i class="fa fa-file-alt"></i> <b>functions.php</b> - definição
+								de novas funções
+								Twig. </li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+
+	<script src="../assets/css/highlight/highlight.min.js"></script>
+	<script src="../assets/css/highlight/php.min.js"></script>
+	<script src="../assets/js/scripts-min.js"></script>
+</body>
+
+</html>

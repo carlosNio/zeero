@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="zeero framework, zeero fw, php framework, zeero, zeero php">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>
+		Zeero Framework - JSON RESOURCES
+	</title>
+
+	<link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/all.min.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/style.min.css">
+	<link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/v4-shims.min.css">
+
+	<link rel="stylesheet" href="../assets/css/highlight/atom-one-dark-reasonable.min.css">
+
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+	<header class="px-5 p-2" id="pg-header">
+		<div class="d-flex align-items-center justify-content-between">
+			<h4 id="title">ZEERO
+				<span class="bt-text">FRAMEWORK</span>
+			</h4>
+			<div>
+				<a href="#" class="btn">
+					<i class="fa fa-github"></i>
+					<span class="bt-text">
+						REPOSITÓRIO
+					</span>
+				</a>
+				<a href="#" class="btn">
+					<i class="fa fa-code"></i>
+					<span class="bt-text">
+						DESENVOLVEDOR
+					</span>
+				</a>
+				<button class="btn" id="barsBtn" onclick="openSidebar()">
+					<i class="fa fa-bars"></i>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="p-2 text-center" id="sections">
+		<a href="../index.html" class="sct">INTRODUÇÃO</a>
+		<a href="../routing/routes.html" class="sct" id="active">ROUTING</a>
+		<a href="../database/zeero-orm.html" class="sct">DATABASE</a>
+		<a href="../core/facades.html" class="sct">CORE</a>
+		<a href="../zeero-cli.html" class="sct">ZCLI</a>
+
+
+	</div>
+
+	<section class="" id="sct-content">
+
+		<div class="row m-0" id="grid">
+			<!-- sidebar -->
+			<div class="col col-12 col-md-2 col-lg-2" id="sidebar">
+				<div class="p-1">
+
+					<div id="onMobile" class="navbar mb-3 text-muted">
+						<h4 class="m-0">ZEERO DOCS</h4>
+						<button class="btn text-muted" onclick="openSidebar()">
+							<i class="fa fa-times fa-2x"></i>
+						</button>
+					</div>
+
+					<a href="../routing/routes.html" class="sct">ROTAS</a>
+
+					<a href="http-responses.html">RESPONSE</a>
+
+					<a href="router.html">ROUTER</a>
+
+					<a href="form-validator.html">FORM VALIDATOR</a>
+
+					<a href="json-resources.html" id="active">JSON RESOURCES</a>
+
+					<a href="error-page.html">ERROR PAGE</a>
+
+				</div>
+			</div>
+
+			<!-- content -->
+			<div class="col col-12 col-lg-10 col-md-10" id="content-div">
+
+				<div class="px-3 mt-2 content">
+					<h5 class="ttl mt-3">
+						JSON RESOURCES
+					</h5>
+					<br>
+
+					<p>Este componente serve como camada de transformação entre os modelos e os dados JSON enviados pela
+						aplicação em
+						uma API.
+					</p>
+					<p>Com esta camada é possível definir a estrutura de cada recurso da API. No directório
+						<i>App/DataBase</i>
+						contém o
+						arquivo
+						<b>
+							<i>factory.php</i>
+						</b>
+						que serve para definição dos processos de transformação de
+						instâncias de modelos
+						á recursos JSON.</p>
+
+					<br>
+					<p>No exemplo a seguir, é mostrado a definição de um recurso com o nome de 'user'.
+					</p>
+
+					<pre class="ft-syntax-highlight" data-syntax-theme="vbgreen">
+<code class="p-0">
+    Resource::factory('user', function ($user) {
+        return [
+          'user_id' => $user->uuid,
+          'user_name' => $user->name,
+          'user_level' => $user->level,
+          'user_email' => $user->email,
+          'date' => $user->created_at
+        ];
+    });  
+          </code>
+            </pre>
+
+					<p>
+						A função
+						<b>factory</b>
+						da classe
+						<i>Zeero\DataBase\Resource</i>
+						recebe como argumento: o
+						<b>nome</b>
+						do
+						recurso e uma
+						<b>função anónima</b>
+						que pode esperar por dois argumentos ( um objecto e uma instância de
+						<i>ResourceHelper</i>
+						)
+						, este último argumento é opcional já que serve apenas para fazer a inclusão a dados
+						de outros recursos
+						já definidos.
+					</p>
+
+					<br>
+					<h5 class="ttl">A classe Resource</h5>
+					<br>
+					<p>Para usar um recurso , essa classe disponibliza dois metódos estáticos que recebem dois
+						argumentos: o nome
+						do recurso , um objecto
+						ou array de objectos.
+					</p>
+
+					<ul class="list-group">
+						<li class="list-group-item">
+							<b>single</b>
+							- este metódo recebe um objecto e retorna um recurso.
+						</li>
+						<li class="list-group-item">
+							<b>collection</b>
+							- este metódo recebe um array de objectos e
+							retorna um array
+							de
+							recursos.
+						</li>
+					</ul>
+
+					<br>
+					<p>O Metódo
+						<i>single</i>
+						recebe ainda um terceiro argumento, que pode ser uma informação extra a
+						injectar no recurso, este poderá ser usado referencialmente na função
+						<i>factory</i>
+						.</p>
+
+					<pre class="ft-syntax-highlight" data-syntax-theme="vbgreen">
+<code class="p-0">
+    Resource::factory('user', function ($user , $helper , $extraInfo) {
+        return [
+          'id' => $user->uuid,
+          'name' => $user->name,
+          'level' => $user->level,
+          'email' => $user->email,
+          '[extra_key]' => $extraInfo,
+          'created_at' => $user->created_at
+        ];
+    }); 
+          
+          </code>
+            </pre>
+
+					<pre>
+<code class="p-0">
+    $app->get('/api/users' , function(){
+      // array de objectos
+      $users = User::all();
+      return Resource::collection('user' , $users); // array de recursos 
+    });
+          
+    // /api/users 
+        [
+            {
+              'name' : 'jane doe',
+              'email' : 'foobaz@mail.com',
+              'level' : 1,
+              'created_at' : null
+            },
+            { ... }, 
+            { ... }
+        ]
+      </code>
+    </pre>
+
+					<pre>
+<code class="p-0">
+  
+    $app->get('/api/user' , function(){
+        // um objecto
+        $user = User::first();
+        return Resource::single('user' , $user);  // um recurso
+    }); 
+          
+    // /api/user 
+      {
+          'name' : 'jane doe',
+          'email' : 'foobaz@mail.com',
+          'level' : 1,
+          'created_at' : null
+      }
+</code>
+            </pre>
+
+					<br>
+
+					<h5 class="ttl">Relacionamentos</h5>
+					<br>
+
+					<p>É possível fazer a inclusão de outros recursos desde que haja um Relacionamento ( 1:N ) entre
+						estes. Por
+						exemplo, servindo recursos de
+						<i>usuários</i>
+						com seus respectivos
+						<i>posts</i>. Isto requer que
+						os haja um relacionamento via chave estrangeira entre os modelos que os recursos representam.
+					</p>
+					<br>
+					<p>Para isso é preciso
+						<i>injectar</i>
+						na função anónima um segundo argumento que corresponderá a
+						uma instância de
+						<i>ResourceHelper
+						</i>, pois esta classe possui dois metódos que retornam um ou
+						mais
+						objectos da relação.
+					</p>
+
+					<br>
+					<p>Estes dois metódos recebem quatro argumentos:
+						<b>o nome do modelo</b>
+						,
+						<b>o campo da relação no
+							modelo</b>
+						,
+						<b>o valor do campo</b>
+						e por último
+						<b>um array de campos a serem filtrados</b>
+						( opcional )
+						.</p>
+
+					<pre>
+<code class="p-0">
+    Resource::factory('user', function ($user , $helper) {
+        return [
+          'id' => $user->uuid,
+          'name' => $user->name,
+          'level' => $user->level,
+          'email' => $user->email,
+          'posts' => $helper->useAll('post', 'user_id', $user->uuid),
+          'created_at' => $user->created_at
+        ];
+      });
+          </code>
+            </pre>
+
+					<p>No Exemplo acima o recurso 'user' tem um novo atributo 'posts' que contém todos os posts do
+						actual
+						<i>user.</i>
+					</p>
+					<p>Além do metódo
+						<b>useAll</b>, há o metódo
+						<b>useOne</b>
+						que retorna apenas um registro.
+					</p>
+
+					<br>
+					<h5 class="ttl">Opções</h5>
+
+					<br>
+					<p>
+						usando o metódo
+						<b>collection</b>
+						que retorna um array de recursos, é possível customizar a
+						estrutura do array
+						retornado , a
+						<b>chave da coleção</b>
+						ou
+						<b>chave individual de cada recurso</b>.
+					</p>
+					<p>Numa coleção de recursos cada recurso é identificado pelo seu indíce , para reverter este
+						comportamento define-se
+						uma palavra que servirá como índice para cada recurso, ou ainda um campo do recurso.
+					</p>
+
+					<br>
+					<h5 class="ttl">Definindo um índice para a coleção</h5>
+
+					<pre>
+<code class="p-0">
+    $app->get('/api/users' , function(){
+        $users = User::all();
+         
+        return Resource::collection('user' , $users , ['key' => 'users']); 
+    }); 
+          
+  {
+    'users' : [
+        {
+          'name' : 'jane doe',
+          'email' : 'foobaz@mail.com',
+          'level' : 1,
+          'created_at' : null
+         },
+         { ... }
+    ]
+  }
+</code>
+            </pre>
+
+					<h5 class="ttl">Definindo um índice individual para cada recurso</h5><br>
+
+					<pre>
+<code class="p-0">
+    $app->get('/api/users' , function(){
+        $users = User::all();
+         
+        return Resource::collection('user' , $users , ['key' => 'users' , 'each' => 'user']); 
+    });  
+          
+  {
+    'users' : [
+        {
+          'user' : {
+            'name' : 'jane doe',
+            'email' : 'foobaz@mail.com',
+            'level' : 1,
+            'created_at' : null
+          }
+        },
+        { 
+          'user' : { ... }
+        }
+    ]
+  }
+</code>
+            </pre>
+
+
+					<br>
+					<h5 class="ttl">Definindo índice individual com base no valor de um dos campos
+					</h5><br>
+
+					<pre>
+<code class="p-0">
+    $app->get('/api/users' , function(){
+        $users = User::all();
+         
+        return Resource::collection('user' , $users , ['key' => 'users' , 'each' => ':name']); 
+    }); 
+          
+  {
+    'users' : [
+        {
+          'jane doe' : {
+            'email' : 'foobaz@mail.com',
+            'level' : 1,
+            'created_at' : null
+          }
+        },
+        { 
+          'foo baz' : { ... }
+        }
+    ]
+  }
+</code>
+            </pre>
+
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+
+	<script src="../assets/css/highlight/highlight.min.js"></script>
+	<script src="../assets/css/highlight/php.min.js"></script>
+	<script src="../assets/js/scripts-min.js"></script>
+</body>
+
+</html>

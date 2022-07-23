@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="zeero framework, zeero fw, php framework, zeero, zeero php">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>
+		Zeero Framework - Migrations
+	</title>
+
+	<link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/all.min.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/style.min.css">
+	<link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/v4-shims.min.css">
+
+	<link rel="stylesheet" href="../assets/css/highlight/atom-one-dark-reasonable.min.css">
+
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+	<header class="px-5 p-2" id="pg-header">
+		<div class="d-flex align-items-center justify-content-between">
+			<h4 id="title">ZEERO
+				<span class="bt-text">FRAMEWORK</span>
+			</h4>
+			<div>
+				<a href="#" class="btn">
+					<i class="fa fa-github"></i>
+					<span class="bt-text">
+						REPOSITÓRIO
+					</span>
+				</a>
+				<a href="#" class="btn">
+					<i class="fa fa-code"></i>
+					<span class="bt-text">
+						DESENVOLVEDOR
+					</span>
+				</a>
+				<button class="btn" id="barsBtn" onclick="openSidebar()">
+					<i class="fa fa-bars"></i>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="p-2 text-center" id="sections">
+		<a href="../index.html" class="sct">INTRODUÇÃO</a>
+		<a href="../routing/routes.html" class="sct">ROUTING</a>
+		<a href="../database/zeero-orm.html" class="sct" id="active">DATABASE</a>
+		<a href="../core/facades.html" class="sct">CORE</a>
+		<a href="../zeero-cli.html" class="sct">ZCLI</a>
+
+
+	</div>
+
+	<section class="" id="sct-content">
+
+		<div class="row m-0" id="grid">
+			<!-- sidebar -->
+			<div class="col col-12 col-md-2 col-lg-2" id="sidebar">
+				<div class="p-1">
+
+					<div id="onMobile" class="navbar mb-3 text-muted">
+						<h4 class="m-0">ZEERO DOCS</h4>
+						<button class="btn text-muted" onclick="openSidebar()">
+							<i class="fa fa-times fa-2x"></i>
+						</button>
+					</div>
+
+					<a href="../database/zeero-orm.html" class="sct">ORM</a>
+
+					<a href="query-builders.html">QUERY BUILDER</a>
+
+					<a href="table-migrations.html" id="active">MIGRATIONS</a>
+
+					<a href="seeds.html">SEEDS</a>
+
+				</div>
+			</div>
+
+			<!-- content -->
+			<div class="col col-12 col-lg-10 col-md-10" id="content-div">
+
+				<div class="px-3 mt-2 content">
+					<h5 class="ttl my-3">Table Migrations</h5>
+					<br>
+
+					<p>As migrações são classes que seus arquivos se encontram no directório
+						<i>Migrations</i>
+						, estes
+						representam o estado actual da estrutura de um tabela, quando uma migração é criada e rodada
+						para cima ( --up = up() ) , a tabela alvo é criada e para possíveis alterações na tabela não é
+						necessário criar outro arquivo de migração, o Zeero segue a regra
+						<b>uma tabela uma
+							migração</b>, que significa que ao alterar um arquivo de migração de uma tabela que já
+						existe ,
+						a framework prossegue para a alteração e faz a análise do seguinte:
+					</p>
+
+					<br>
+					<ul class="list-group">
+						<li class="list-group-item">
+							1º - campos alterados, adicionados ou deletados.
+						</li>
+						<li class="list-group-item">
+							2º - chaves adicionadas ou deletadas.
+						</li>
+					</ul>
+
+					<br>
+					<p>Quando houve mudanças na migração poderemos saber seu o numéro ( nº de campos alterados, nº de
+						chaves adicionadas, etc ) , caso contrário a migração não é executada.
+					</p>
+
+					<br>
+					<h5 class="ttl">
+						Estrutura
+					</h5>
+					<br>
+					<p>Toda classe de migração contém dois metódos obrigatórios:
+					</p>
+					<br>
+
+					<ul class="list-group">
+						<li class="list-group-item">up() - criação ou alteração
+						</li>
+						<li class="list-group-item">down() - destruição
+						</li>
+					</ul>
+
+					<br>
+					<p>As migrations fazem total uso da facade
+						<a href="#">Schema</a>
+						que disponibliza os metódos
+						necessários para as
+						operações de migração.
+					</p>
+
+					<pre>
+                        <code class="p-0">
+        class CreatePostTable extends Migration
+        {
+        
+            public function up() 
+            {
+                //
+            }
+        
+            public function down() 
+            {
+                //
+            }
+        
+        }
+                        </code>
+                      </pre>
+
+					<h5 class="ttl">
+						FORMAS DE CRIAÇÃO DE MIGRATIONS
+					</h5>
+					<br>
+
+					<h6 class="ttl">
+						1ª FORMA: Manualmente
+					</h6>
+					<p>Os arquivos de migração podem ser escritos a mão, desde que se extendam da classe
+						<i>Zeero\DataBase\Migration</i>
+						e consequentemente possuir dois metódos principais:
+						<b>up</b>
+						e
+						<b>down</b>.
+					</p>
+
+					<br>
+
+					<h6 class="ttl">
+						2ª FORMA: Utilizando o Command
+						<b>make</b>
+						do ZCLI
+					</h6>
+					<p>Utilizar o comando
+						<i>MAKE</i>
+						do ZCLI reduz o esforço da criação de um arquivo de migração, ele
+						gera um arquivo de migração pronto para definir os campos da tabela.
+					</p>
+
+					<br>
+					<div class="terminal">
+						<code style="padding: 9px;">
+							<b>
+								>
+								<b style="color:gold">php</b>
+								zcli
+								<b class="text-primary">make:migration</b>
+								[NOME DA
+								TABELA]
+							</b>
+						</code>
+					</div>
+
+					<br>
+
+					<h6 class="ttl">
+						3ª FORMA: Utilizando o Command
+						<b>sql_to_php</b>
+						do ZCLI
+					</h6>
+					<p>
+						Este comando tem a finalidade de gerar um ou mais arquivos de migração no padrão do Zeero ,
+						apartir de um
+						<b>arquivo SQL</b>
+						que contem a DDL de uma ou mais tabelas. Este arquivo deve
+						estar do directório
+						<b>public</b>.
+					</p>
+					<br>
+					<div class="terminal">
+						<code style="padding: 9px;">
+							<b>
+								>
+								<b style="color:gold">php</b>
+								zcli
+								<b class="text-primary">sql_to_php</b>
+								[NOME DO
+								ARQUIVO]
+							</b>
+						</code>
+					</div>
+
+					<br>
+
+					<h6 class="ttl">
+						4ª FORMA: Utilizando o Command
+						<b>db:reverse_migration</b>
+						do ZCLI
+					</h6>
+					<p>
+						Este comando tem a finalidade de gerar um ou mais arquivos de migração no padrão do Zeero ,
+						apartir de uma ou mais tabelas que existam na base de dados ligada á aplicação.
+					</p>
+
+					<p>O Comando cria o arquivo de migração contendo as colunas , relações da tabela.
+					</p>
+
+					<br>
+					<div class="terminal">
+						<code style="padding: 9px;">
+							<b>
+								>
+								<b style="color:gold">php</b>
+								zcli
+								<b class="text-primary">db:reverse_migration</b>
+								[TABELA]
+							</b>
+							<br>
+							<b>
+								>
+								<b style="color:gold">php</b>
+								zcli
+								<b class="text-primary">db:reverse_migration</b>
+								all
+							</b>
+						</code>
+					</div>
+
+					<br>
+					<br>
+					<h5 class="ttl">Executando uma migração</h5>
+					<br>
+
+					<div class="terminal">
+						<code style="padding: 9px;">
+							<b>
+								>
+								<b style="color:gold">php</b>
+								zcli
+								<b class="text-primary">migrate</b>
+								[TABELA] [ --up ou --down ]>
+								<br>
+								<b>
+									>
+									<b style="color:gold">php</b>
+									zcli
+									<b class="text-primary">migrate:all</b>
+									[ --up ou
+									--down ]</b>
+							</b></code>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+
+	<script src="../assets/css/highlight/highlight.min.js"></script>
+	<script src="../assets/css/highlight/php.min.js"></script>
+	<script src="../assets/js/scripts-min.js"></script>
+</body>
+
+</html>

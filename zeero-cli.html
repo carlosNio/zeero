@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="keywords" content="zeero framework, zeero fw, php framework, zeero, zeero php">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>
+			Zeero Framework - Zeero CLI
+		</title>
+
+		<link rel="stylesheet" href="assets/css/fontawesome-free-6.0.0-web/css/all.min.css">
+		<link rel="stylesheet" href="assets/css/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="assets/css/style.min.css">
+		<link rel="stylesheet" href="assets/css/fontawesome-free-6.0.0-web/css/v4-shims.min.css">
+
+		<link rel="stylesheet" href="assets/css/highlight/atom-one-dark-reasonable.min.css">
+
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	</head>
+
+	<body>
+
+		<header class="px-5 p-2" id="pg-header">
+			<div class="d-flex align-items-center justify-content-between">
+				<h4 id="title">ZEERO
+					<span class="bt-text">FRAMEWORK</span>
+				</h4>
+				<div>
+					<a href="#" class="btn">
+						<i class="fa fa-github"></i>
+						<span class="bt-text">
+							REPOSITÓRIO
+						</span>
+					</a>
+					<a href="#" class="btn">
+						<i class="fa fa-code"></i>
+						<span class="bt-text">
+							DESENVOLVEDOR
+						</span>
+					</a>
+					<button class="btn" id="barsBtn" onclick="openSidebar()">
+						<i class="fa fa-bars"></i>
+					</button>
+				</div>
+			</div>
+		</header>
+
+		<div class="p-2 text-center" id="sections"> 
+	<a href="index.html" class="sct">INTRODUÇÃO</a>
+	<a href="routing/routes.html" class="sct">ROUTING</a>
+	<a href="database/zeero-orm.html" class="sct">DATABASE</a>
+	<a href="core/facades.html" class="sct">CORE</a>
+	<a href="zeero-cli.html" class="sct" id="active">ZCLI</a>
+
+
+			</div>
+
+			<section class="" id="sct-content">
+
+				<div class="row m-0" id="grid">
+					<!-- sidebar -->
+					<div class="col col-12 col-md-2 col-lg-2" id="sidebar">
+						<div class="p-1">
+
+							<div id="onMobile" class="navbar mb-3 text-muted">
+								<h4 class="m-0">ZEERO DOCS</h4>
+								<button class="btn text-muted" onclick="openSidebar()">
+									<i class="fa fa-times fa-2x"></i>
+								</button>
+							</div>
+
+									
+		
+		
+		
+		
+		
+		<button class="hasSub" onclick="openSubMenu(this)">
+			<span>COMMANDS DO ZCLI</span>
+			<i class="fa fa-angle-right"></i>
+		</button>
+
+		<div class="subMenu">
+			<a href="#serve">SERVE</a>
+			<a href="#make">MAKE</a>
+			<a href="#migrate">MIGRATE</a>
+			<a href="#route">ROUTE</a>
+			<a href="#security">SECURITY</a>
+		</div>
+
+		<a href="#create">CRIAR COMMANDS</a>
+
+	
+
+						</div>
+					</div>
+
+					<!-- content -->
+					<div class="col col-12 col-lg-10 col-md-10" id="content-div">
+
+						<div class="px-3 mt-2 content"> <h5 class="ttl">ZCLI - Zeero Command
+	Line Interface
+</h5>
+<br>
+
+<div class="content">
+	<p>
+		Esse Componente é de grande uso em desenvolvimento, já que as suas funcionalides agilizam o
+		trabalho. Operações
+		tais como: criação de arquivos , migração de dados ou tabelas, execução de tarefas tendem
+		a gastar tempo quando feito manualmente, por isso é recomandado o uso do Zcli.
+	</p>
+	<br>
+	<p>
+		O Zcli possuí um arquivo na raíz do projecto ( <b>zcli</b> ) que serve de script para o php,
+		com qual poderemos
+		executar os nossos comandos.
+	</p>
+
+	<br>
+	<h6 id="structure" class="text-uppercase">
+		</h6><li>
+			Estrutura de um comando
+		</li>
+	
+	<br>
+	<div class="terminal">
+		<code>
+			> <b style="color:gold">php zcli</b> [NOME_DO_COMANDO] [:ARGUMENTO] [VALOR] [OPÇÂO<span class="identifier-native"> 1</span>] [OPÇÂO<span class="identifier-native">
+				2</span>] ... [OPÇÂO N]
+		</code>
+	</div>
+
+	<br>
+	<h6 id="list" class="ttl">
+		</h6><li>
+			Lista de Comandos Disponíveis
+		</li>
+	
+
+	<br>
+	<table class="table">
+		<tr>
+			<th>Nome</th>
+			<th>Usado Para</th>
+		</tr>
+		<tr>
+			<td>MAKE</td>
+			<td>Criação de arquivos. </td>
+		</tr>
+		<tr>
+			<td>MIGRATE</td>
+			<td>Migração de tabelas á Base de Dados. </td>
+		</tr>
+		<tr>
+			<td>SECURITY</td>
+			<td>Actualização de items de segurança</td>
+		</tr>
+		<tr>
+			<td>SERVE</td>
+			<td>Inicialização do servidor de desenvolvimeto local. </td>
+		</tr>
+	</table> <br>
+
+	<h6 class="ttl" id="make">
+		</h6><li>
+			Exemplos do Comando <b>MAKE</b>
+		</li>
+	
+	<br>
+
+	<div class="terminal">
+		<code style="padding: 9px;">
+			> <b style="color:gold">php</b> zcli <b class="text-primary">make:controller</b>
+			Post
+			<br>
+			> <b style="color:gold">php</b> zcli <b class="text-primary">make:controller</b>
+			Post -- r // REST rsource
+			<br>
+			> <b style="color:gold">php</b> zcli <b class="text-primary">make:model</b> Comment
+
+			<br>
+			> <b style="color:gold">php</b> zcli <b class="text-primary">make:migration</b> Post
+
+			<br>
+			> <b style="color:gold">php</b> zcli <b class="text-primary">make:request</b> Post
+
+			<br>
+			> <b style="color:gold">php</b> zcli <b class="text-primary">make:seed</b> Post
+			<br>
+			> <b style="color:gold">php</b> zcli <b class="text-primary">make:console_command</b>
+			MyCmd
+			<br>
+		</code>
+	</div>
+
+	<br>
+	<h6 class="ttl" id="migrate">
+		</h6><li>
+			Exemplos do Comando <b>MIGRATE</b>
+		</li>
+	
+	<br>
+	<div class="terminal">
+		<code class="p-0">
+			> <b style="color:gold">php</b> zcli <b class="text-primary">migrate</b> User --up
+			// create or edit a table
+			<br>
+			> <b style="color:gold">php</b> zcli <b class="text-primary">migrate</b> User --down
+			// drop a table
+			<br>
+			> <b style="color:gold">php</b> zcli <b class="text-primary">migrate</b> User --up
+			--m // create a table and generate the model class
+			<br>
+			> <b style="color:gold">php</b> zcli <b class="text-primary">migrate:all</b> --up //
+			create or edit all migrations tables
+			<br>
+			> <b style="color:gold">php</b> zcli <b class="text-primary">migrate:all</b>
+			--down // drop all migrations tables
+
+		</code>
+	</div>
+
+	<br>
+	<h6 class="ttl" id="security">
+		</h6><li>
+			Exemplos do Comando <b>SECURITY</b>
+		</li>
+	
+	<br>
+	<div class="terminal">
+		<code class="p-0">
+			> <b style="color:gold">php</b> zcli <b class="text-primary">security:key</b>
+			generate // Generate a new Application KEY
+		</code>
+	</div>
+	<br>
+	<h6 class="ttl" id="route">
+		</h6><li>
+			Exemplos do Comando <b>ROUTE</b>
+		</li>
+	
+	<br>
+	<div class="terminal">
+		<code class="p-0">
+			> <b style="color:gold">php</b> zcli <b class="text-primary">route:list</b> // view
+			all routes
+		</code>
+	</div>
+
+	
+
+	<br>
+	<h6 class="ttl" id="serve">
+		</h6><li>
+			Exemplos do Comando <b>SERVE</b>
+		</li>
+	
+	<br>
+
+	<div class="terminal">
+		<code class="p-0">
+			> <b style="color:gold">php</b> zcli <b class="text-primary">serve</b> // start
+			localhost ( default por:1000 )
+			<br>
+			>
+			<b style="color:gold">php</b> zcli <b class="text-primary">serve 5000</b> //
+			start localhost at port: 5000
+		</code>
+	</div>
+
+	<br>
+
+	<h5 class="ttl" id="create">
+		</h5><li>Criando Comandos</li>
+	<br>
+
+	<p>
+		Os passos para a criação de comandos zcli para uma aplicação são:
+	</p><br>
+
+	<ul class="list-group">
+		<li class="list-group-item">Criar uma classe Comando , via comando MAKE, a classe será
+			criada na Pasta
+			<i>Controllers/Console</i>.
+		</li>
+		<li class="list-group-item">Registar o Comando criado na classe <b>Zcli</b>, via metódo
+			estático <i class="text-primary">registerCommand()</i>, este registro deve ser feito
+			no arquivo
+			<b><i>console.php</i></b> dessa mesma Pasta.
+		</li>
+	</ul><br>
+	<br>
+	<h6>Registrando o Comando no arquivo <b>console.php</b> do directório <i>Controllers/Console</i>
+	</h6>
+
+	<pre>
+                            <code class="p-0">
+    Zcli::registerCommand('myCmd' , MyCommand::class);
+                            </code>
+                          </pre>
+
+	<div class="terminal mt-0">
+		<code class="p-0">
+			> <b style="color:gold">php</b> zcli <b class="text-primary">myCmd</b>
+		</code>
+	</div>
+
+	<br>
+	<h5 class="ttl" id="args">
+		Adicionando Argumentos Ao Comando
+	</h5>
+
+	<pre class="mt-0">
+                            <code class="p-0">
+    public static $_arguments = [ 'arg' ]; //registrar o argumento na propriedade da classe
+
+    // ...
+
+    // criando o metodo
+    public function arg()
+    {
+      if ($this->input_value)
+        echo "hello {$this->input_value}";
+      else
+        echo "hello from :arg";
+    } 
+
+</code>
+        </pre>
+
+	<div class="terminal mt-0">
+		<code class="p-0">
+			> <b style="color:gold">php</b> zcli <b class="text-primary">myCmd:arg</b> // hello from :arg
+			<br>
+			> <b style="color:gold">php</b> zcli <b class="text-primary">myCmd:arg</b> carlos // hello carlos
+		</code>
+	</div>
+
+
+</div>
+							</div>
+
+						</div>
+					</div>
+				</section>
+
+
+				<script src="assets/css/highlight/highlight.min.js"></script>
+				<script src="assets/css/highlight/php.min.js"></script>
+				<script src="assets/js/scripts-min.js"></script>
+			</body>
+
+		</html>

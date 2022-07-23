@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="zeero framework, zeero fw, php framework, zeero, zeero php">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Zeero Framework - Respostas HTTP
+    </title>
+
+    <link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/style.min.css">
+    <link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/v4-shims.min.css">
+
+    <link rel="stylesheet" href="../assets/css/highlight/atom-one-dark-reasonable.min.css">
+
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+    <header class="px-5 p-2" id="pg-header">
+        <div class="d-flex align-items-center justify-content-between">
+            <h4 id="title">ZEERO
+                <span class="bt-text">FRAMEWORK</span>
+            </h4>
+            <div>
+                <a href="#" class="btn">
+                    <i class="fa fa-github"></i>
+                    <span class="bt-text">
+                        REPOSITÓRIO
+                    </span>
+                </a>
+                <a href="#" class="btn">
+                    <i class="fa fa-code"></i>
+                    <span class="bt-text">
+                        DESENVOLVEDOR
+                    </span>
+                </a>
+                <button class="btn" id="barsBtn" onclick="openSidebar()">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="p-2 text-center" id="sections">
+        <a href="../index.html" class="sct">INTRODUÇÃO</a>
+        <a href="../routing/routes.html" class="sct" id="active">ROUTING</a>
+        <a href="../database/zeero-orm.html" class="sct">DATABASE</a>
+        <a href="../core/facades.html" class="sct">CORE</a>
+        <a href="../zeero-cli.html" class="sct">ZCLI</a>
+
+
+    </div>
+
+    <section class="" id="sct-content">
+
+        <div class="row m-0" id="grid">
+            <!-- sidebar -->
+            <div class="col col-12 col-md-2 col-lg-2" id="sidebar">
+                <div class="p-1">
+
+                    <div id="onMobile" class="navbar mb-3 text-muted">
+                        <h4 class="m-0">ZEERO DOCS</h4>
+                        <button class="btn text-muted" onclick="openSidebar()">
+                            <i class="fa fa-times fa-2x"></i>
+                        </button>
+                    </div>
+
+
+
+
+                    <a href="../routing/routes.html" class="sct">ROTAS</a>
+
+                    <a href="http-responses.html" id="active">RESPONSE</a>
+
+                    <a href="router.html">ROUTER</a>
+
+                    <a href="form-validator.html">FORM VALIDATOR</a>
+
+                    <a href="json-resources.html">JSON RESOURCES</a>
+
+                    <a href="error-page.html">ERROR PAGE</a>
+
+                </div>
+            </div>
+
+            <!-- content -->
+            <div class="col col-12 col-lg-10 col-md-10" id="content-div">
+
+                <div class="px-3 mt-2 content">
+                    <h5 id="response" class="ttl">
+                    </h5>
+                    <li> Resposta</li>
+
+                    <br>
+
+                    <h6>Dependendo do despache de uma rota , o <b>Router</b> da Framework espera por um retorno.</h6>
+                    <br>
+
+                    <h6 class="ttl">
+                    </h6>
+                    <li class="text-primary">Retornando um array</li>
+                    <br>
+
+                    <h6>Ao retornar um <b>array</b> o Router dá uma resposta JSON ( Content-Type: application/json ) com
+                        o
+                        conteúdo do
+                        vector passado. </h6> <br>
+
+                    <p>Indíces do Array que serão interpretados pelo <i>Router</i> </p>
+
+                    <table class="table table-hover table-bordered">
+                        <tr class="bg-primary text-light">
+                            <th>Chave</th>
+                            <th>Uso</th>
+                        </tr>
+                        <tr>
+                            <td>redirect</td>
+                            <td>O router faz um redirecionameto. ( <b>string</b> ) </td>
+                        </tr>
+                        <tr>
+                            <td>headers</td>
+                            <td>Adiciona um ou mais cabeçalhos de resposta. ( <b>array associativo</b> ) </td>
+                        </tr>
+                        <tr>
+                            <td>status</td>
+                            <td>define o código HTTP da resposta. ( <b>valor inteiro</b> ) </td>
+                        </tr>
+                    </table>
+
+                    <br>
+
+                    <div class="alert alert-warning">
+                        <h5 class="mb-3"><b>NOTA</b>
+
+                        </h5>
+                        <p>Se a chave <b>redirect</b> estiver definido no array, o router fará apenas o
+                            redirecionameto,
+                            setando
+                            o
+                            <b>status:<span> 302</span></b> .
+                        </p>
+                    </div>
+
+                    <br>
+                    <h6 class="ttl">
+                    </h6>
+                    <li class="text-primary">Retornando um objecto </li>
+                    <br>
+
+                    <h6>Ao retornar um <b>objecto</b> o Router dá uma resposta JSON ( Content-Type: application/json )
+                        com o
+                        conteúdo
+                        do objecto . </h6> <br>
+
+                    <h6 class="ttl">
+                    </h6>
+                    <li class="text-primary">Retornando uma string</li>
+                    <br>
+
+                    <h6>Ao retornar uma <b>string</b> o Router dá uma resposta de texto simples ( Content-Type:
+                        text/html ) com
+                        a
+                        string
+                        retornada. </h6> <br>
+
+                    <pre>
+    <code class="p-0">
+        $app->get('/api/users' , function(){
+              $users = User::all();
+              return ['error' => false , 'list' => $users];
+        });
+          
+         $app->get('/api/users' , function(){
+             // ... 
+            return ['status' => 400, 'headers' => [ 'X-Bad' => true ] , 'message' => 'bad request' ];
+        }); 
+    </code>
+  </pre>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="../assets/css/highlight/highlight.min.js"></script>
+    <script src="../assets/css/highlight/php.min.js"></script>
+    <script src="../assets/js/scripts-min.js"></script>
+</body>
+
+</html>

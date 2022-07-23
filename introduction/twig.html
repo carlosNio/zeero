@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="zeero framework, zeero fw, php framework, zeero, zeero php">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>
+		Zeero Framework - Twig Engine
+	</title>
+
+	<link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/all.min.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/style.min.css">
+	<link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/v4-shims.min.css">
+
+	<link rel="stylesheet" href="../assets/css/highlight/atom-one-dark-reasonable.min.css">
+
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+	<header class="px-5 p-2" id="pg-header">
+		<div class="d-flex align-items-center justify-content-between">
+			<h4 id="title">ZEERO
+				<span class="bt-text">FRAMEWORK</span>
+			</h4>
+			<div>
+				<a href="#" class="btn">
+					<i class="fa fa-github"></i>
+					<span class="bt-text">
+						REPOSITÓRIO
+					</span>
+				</a>
+				<a href="#" class="btn">
+					<i class="fa fa-code"></i>
+					<span class="bt-text">
+						DESENVOLVEDOR
+					</span>
+				</a>
+				<button class="btn" id="barsBtn" onclick="openSidebar()">
+					<i class="fa fa-bars"></i>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="p-2 text-center" id="sections">
+		<a href="../index.html" class="sct" id="active">INTRODUÇÃO</a>
+		<a href="../routing/routes.html" class="sct">ROUTING</a>
+		<a href="../database/zeero-orm.html" class="sct">DATABASE</a>
+		<a href="../core/facades.html" class="sct">CORE</a>
+		<a href="../zeero-cli.html" class="sct">ZCLI</a>
+
+
+	</div>
+
+	<section class="" id="sct-content">
+
+		<div class="row m-0" id="grid">
+			<!-- sidebar -->
+			<div class="col col-12 col-md-2 col-lg-2" id="sidebar">
+				<div class="p-1">
+
+					<div id="onMobile" class="navbar mb-3 text-muted">
+						<h4 class="m-0">ZEERO DOCS</h4>
+						<button class="btn text-muted" onclick="openSidebar()">
+							<i class="fa fa-times fa-2x"></i>
+						</button>
+					</div>
+
+
+
+					<a href="../index.html" class="sct">Instalação</a>
+
+					<a href="mvc.html">MVC</a>
+
+					<a href="twig.html" id="active">Twig</a>
+
+
+				</div>
+			</div>
+
+			<!-- content -->
+			<div class="col col-12 col-lg-10 col-md-10" id="content-div">
+
+                <div class="px-3 p-2 mt-2 content">
+
+                    <h5 class="text-muted text-uppercase mb-3"> Twig Template Engine </h5>
+
+                    <div class="px-1 mt-4">
+
+                        <p>O Twig é o template engine padrão na framework Zeero, isso devido a sua flexibiliade ,
+                            rapidez e segurança. </p>
+                        <p>O directório <i>App/Views</i> serve para armazenar os templates da aplicação .</p>
+
+                        <h5 class="topic my-4 text-muted text-uppercase">Sinopse</h5>
+
+                        <p>Um <b>template</b> é simplesmente um arquivo de texto. Este pode gerar qualquer formato
+                            baseado em texto (HTML ,
+                            XML , CSV , etc.). Eles não têm uma extensão específica. </p>
+                        <p>Um template contém <b>variáveis</b> e <b>expressões</b>, os quais serão trocados por valores
+                            quando o template
+                            for avaliado ou processado, e <b>tags</b> que controlam a lógica do template. </p>
+
+                        <img src="../assets/img/twig.png" class="my-3">
+                        <br>
+                        <br>
+                        <p>No Twig há dois tipos de delimitadores: </p>
+                        <ul>
+                            <li> {%  %} - usado para executar instruções , por exemplo um ciclo <i>for</i>. </li>
+                            <li> {{  }} - usado para imprimir resultados de expressões no template. </li>
+                        </ul>
+
+                        <br>
+                        <h5 class="topic mt-2 mb-3 text-muted text-uppercase">Variáveis</h5>
+
+                        <p>A aplicação passa variáveis para o template para manipulação dentro do template. Variáveis
+                            podem ter atributos ou
+                            elementos que podem ser acessados. A representação visual da variável depende de como chegou
+                            da aplicação para o
+                            template. </p>
+                        <p>Pode ser usado o ponto <b>( . )</b> para acessar atributos de uma variável ( metódos ou
+                            propriedades de um
+                            objecto PHP, ou ainda items de um array PHP ). Bem como a chamada sintáxe <i>subscript (
+                                <b>[ ]</b> ) </i> . </p>
+
+                        <pre><code>
+    {{ foo.bar }
+    {{ foo['bar'] }}
+    </code></pre>
+
+                        <p>Quando o atributo contém um símbolo especial ( # , + , / , * , - , etc. ), é usado a função
+                            <b>attribute</b>.
+                        </p>
+
+                        <pre><code>
+    {{ attribute(foo , 'data-foo') }}
+                        </code>
+                        </pre>
+
+                        <h5 class="mt-2 mb-3 text-muted text-uppercase">Criando Variáveis</h5>
+
+                        <pre><code>
+    {% set foo = 'foo value' %} // string
+    {% set foo = [1,2,3] %} // array
+    {% set foo = { 'foo-key' : 'foo-key-value' } %} // objecto
+                            </code></pre>
+
+                        <br>
+
+
+                        <h5 class="mt-2 mb-3 text-muted text-uppercase">FILTROS</h5>
+
+                        <p>Variáveis podem ser modificadas por <b>filtros</b>. Filtros são separados das variáveis pelo
+                            símbolo <b>( | )</b>
+                            e podem ter paramêtros opcionais dentro de parênteses. Múltiplos filtros podem ser
+                            encadeados, o resultado de um
+                            filtro é aplicado ao próximo. </p>
+                        <pre class="" data-syntax-theme="vbgreen">
+        <code class="">
+    {{ nome|striptags }}
+
+    {{ list|join(', ') }}
+       
+    {% filter upper %}
+        // todas as letras deste texto são maiúsculas
+    {% endfilter %} 
+        </code>
+        </pre>
+
+                        <h5 class="mt-2 mb-3 text-muted text-uppercase">FUNÇÕES</h5>
+
+                        <p>Funções podem ser chamadas para gerar conteúdo. São chamadas pelos seus nomes seguido por
+                            parênteses ( ) e podem
+                            ter argumentos. Um Exemplo é a função <b>range</b> que retorna uma lista contendo uma
+                            progressão aritmética de
+                            inteiros: </p>
+
+                        <pre>
+          <code class="">
+    {% for i in range(1, 10) %}
+    {{ i }} // 1,2,3,4,5,6,7,8,9,10
+    {% enfor %} 
+          </code>  </pre>
+
+                        <h5 class="mt-2 mb-4 text-muted text-uppercase">ESTRUTURAS DE CONTROLE E REPETIÇÃO</h5>
+
+                        <pre><code class="">
+    {% if condiction %}
+        ...
+    {% endif %}
+        
+    {% if condiction %}
+        ...
+    {% else %}
+        ...
+    {% endif %}
+                                
+    {% if condiction %}
+        ...
+    {% elseif condiction  %}
+        ...
+    {% else %}
+        ...
+    {% endif %} </code></pre>
+
+                        <pre><code class="">
+    {% for user in users %}
+    {{ user.name }}
+    {% enfor %}
+            
+    {% for user in users %}
+        {{ user.name }}
+    {% else %}
+        {{ '0 Records' }}
+    {% enfor %}
+
+    {% for count in range( start , end ) %}
+            
+    {% enfor %} 
+
+</code> </pre>
+
+                        <h5 class="mt-2 mb-3 text-muted text-uppercase">FUNCÕES TWIG NO ZEERO</h5>
+
+                        <p>Além da organização dos arquivos de templates, na framework Zeero há um conjunto de funções
+                            pré definidas. </p>
+
+                        <table class="table table-hover">
+                            <tr class="bg-primary text-light">
+                                <td>função</td>
+                                <td>usado para</td>
+                            </tr>
+
+                            <tr>
+                                <td>asset</td>
+                                <td>retornar a URL absoluta de um arquivo no directório <i>App/public/assets</i> </td>
+                            </tr>
+
+                            <tr>
+                                <td>auth()</td>
+                                <td>retornar a instância do AuthController</td>
+                            </tr>
+
+                            <tr>
+                                <td>csrfMeta()</td>
+                                <td>retornar um elemento meta com um token CSRF </td>
+                            </tr>
+
+                            <tr>
+                                <td>csrfToken()</td>
+                                <td>retornar um token CSRF </td>
+                            </tr>
+
+                            <tr>
+                                <td>csrfInput()</td>
+                                <td>retornar elemento input:hidden com um token CSRF </td>
+                            </tr>
+
+                            <tr>
+                                <td>current_uri()</td>
+                                <td>retornar a URI actual da requisição </td>
+                            </tr>
+
+                            <tr>
+                                <td>render</td>
+                                <td>retornar a URL absoluta de um arquivo no directório <i>App/Views/renders</i> </td>
+                            </tr>
+
+                            <tr>
+                                <td>macro</td>
+                                <td>retornar a URL absoluta de um arquivo no directório <i>App/Views/macros</i> </td>
+                            </tr>
+
+                            <tr>
+                                <td>helper</td>
+                                <td>retornar a URL absoluta de um arquivo no directório <i>App/Views/helpers</i> </td>
+                            </tr>
+
+                            <tr>
+                                <td>template</td>
+                                <td>retornar a URL absoluta de um arquivo no directório <i>App/Views/templates</i> </td>
+                            </tr>
+
+                            <tr>
+                                <td>timer</td>
+                                <td>retornar uma instância da classe <i>Timer</i></td>
+                            </tr>
+
+                            <tr>
+                                <td>backURL</td>
+                                <td>retornar a URL anterior</td>
+                            </tr>
+
+                            <tr>
+                                <td>route</td>
+                                <td>retornar a URL de uma rota nomeada</td>
+                            </tr>
+
+                            <tr>
+                                <td>_dump</td>
+                                <td>mostrar conteúdo de uma variável</td>
+                            </tr>
+
+                            <tr>
+                                <td>session</td>
+                                <td>retornar um valor das sessões</td>
+                            </tr>
+
+                            <tr>
+                                <td>flash</td>
+                                <td>retornar um valor das sessões flash</td>
+                            </tr>
+
+                            <tr>
+                                <td>has_session</td>
+                                <td>testar se existe uma valor nas sessões </td>
+                            </tr>
+
+                            <tr>
+                                <td>has_flash</td>
+                                <td>testar se existe um valor nas sessões flash</td>
+                            </tr>
+
+                        </table>
+
+                        <br>
+
+                    </div>
+
+                </div>
+
+			</div>
+		</div>
+	</section>
+
+
+	<script src="../assets/css/highlight/highlight.min.js"></script>
+	<script src="../assets/css/highlight/php.min.js"></script>
+	<script src="../assets/css/highlight/twig.min.js"></script>
+	<script src="../assets/js/scripts-min.js"></script>
+</body>
+
+</html>

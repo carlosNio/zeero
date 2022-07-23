@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="zeero framework, zeero fw, php framework, zeero, zeero php">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Zeero Framework - Helpers
+    </title>
+
+    <link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/style.min.css">
+    <link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/v4-shims.min.css">
+
+    <link rel="stylesheet" href="../assets/css/highlight/atom-one-dark-reasonable.min.css">
+
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+    <header class="px-5 p-2" id="pg-header">
+        <div class="d-flex align-items-center justify-content-between">
+            <h4 id="title">ZEERO
+                <span class="bt-text">FRAMEWORK</span>
+            </h4>
+            <div>
+                <a href="#" class="btn">
+                    <i class="fa fa-github"></i>
+                    <span class="bt-text">
+                        REPOSITÓRIO
+                    </span>
+                </a>
+                <a href="#" class="btn">
+                    <i class="fa fa-code"></i>
+                    <span class="bt-text">
+                        DESENVOLVEDOR
+                    </span>
+                </a>
+                <button class="btn" id="barsBtn" onclick="openSidebar()">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="p-2 text-center" id="sections">
+        <a href="../index.html" class="sct">INTRODUÇÃO</a>
+        <a href="../routing/routes.html" class="sct">ROUTING</a>
+        <a href="../database/zeero-orm.html" class="sct">DATABASE</a>
+        <a href="../core/facades.html" class="sct" id="active">CORE</a>
+        <a href="../zeero-cli.html" class="sct">ZCLI</a>
+
+
+    </div>
+
+    <section class="" id="sct-content">
+
+        <div class="row m-0" id="grid">
+            <!-- sidebar -->
+            <div class="col col-12 col-md-2 col-lg-2" id="sidebar">
+                <div class="p-1">
+
+                    <div id="onMobile" class="navbar mb-3 text-muted">
+                        <h4 class="m-0">ZEERO DOCS</h4>
+                        <button class="btn text-muted" onclick="openSidebar()">
+                            <i class="fa fa-times fa-2x"></i>
+                        </button>
+                    </div>
+
+
+                    <a href="../core/facades.html" class="sct">FACADES</a>
+
+                    <a href="helpers.html" id="active">HELPERS</a>
+
+                    <a href="cryptography.html">CRYPTO</a>
+
+                </div>
+            </div>
+
+            <!-- content -->
+            <div class="col col-12 col-lg-10 col-md-10" id="content-div">
+
+                <div class="px-3 mt-2 content">
+                    <h5 class="ttl " id="routing"> Helpers
+                    </h5>
+
+                    <ul>
+                        <li style="list-style-type: circle !important;">
+                            Env
+                            <ul>
+                                <li><a href="#env_read">leitura</a></li>
+                                <li><a href="#env_insert">inserção</a></li>
+                                <li><a href="#env_drop">remoção</a></li>
+                                <li><a href="#env_update">actualização</a></li>
+                            </ul>
+                        </li>
+                        <li style="list-style-type: circle !important;"><a href="#timer">Timer</a></li>
+                        <li style="list-style-type: circle !important;"><a href="#regex">RegexPatterns</a></li>
+                        <li style="list-style-type: circle !important;"><a href="#url">URL</a></li>
+                        <li style="list-style-type: circle !important;"><a href="#functions">Funções da Framework</a>
+                        </li>
+                    </ul>
+
+                    <br>
+                    <br>
+
+                    <div class="content" style="margin-left: 20px;">
+                        <h5 id="database" class="text-dark">DataBase</h5>
+                        <pre>
+  <code class="p-0">
+    DataBase::executeSQL( 'SET NAME_TO_MATCH = "Carlos" ' );
+    DataBase::query( 'select * from tbl_produtos' );
+
+    // executa um preparedStatement 
+    DataBase::preparedStatement( 'delete from tbl_produtos where id = :id' , [ ':id' => 16 ] );
+    // executa o resultado de um queryBuilder
+    DataBase::execute( $builder->results() );
+    
+    DataBase::autoCommit(bool); // hablita ou desablita AUTO_COMMIT 
+
+    DataBase::setVar('MY_VAR_NAME' , 'MY_VAR_VALUE'); // cria uma variável 
+
+    DataBase::BeginWork(); // inicia uma trasanção 
+    // operações
+    DataBase::Commit(); // faz um commit 
+    // operações
+    DataBase::RollBack(); // reverte as alterações  
+  </code>
+</pre>
+                    </div>
+
+                    <div class="content" style="margin-left: 20px;">
+
+                        <h5 class="ttl">Env</h5>
+
+                        <p>Essa classe é um helper que facilita o manuseamento do arquivo <b>.env</b> na raiz do
+                            projecto, ela registra
+                            todos os items desse arquivo numa estrutura de dados do tipo chave-valor para a leitura de
+                            informações e
+                            implementa metódos utilitários para operações como actualização , inserção e remoção de
+                            items no arquivo. </p>
+
+                        <h6 class="ttl mt-4">Metódos da classe Env </h6>
+
+                        <table class="table">
+                            <tr class="bg-primary text-light">
+                                <th>metódo</th>
+                                <th>usado para</th>
+                            </tr>
+
+                            <tr>
+                                <td>has( key )</td>
+                                <td>verificar se o item *key encontra-se no arquivo .env </td>
+                            </tr>
+                            <tr>
+                                <td>get( key )</td>
+                                <td>retornar o valor do item *key </td>
+                            </tr>
+                            <tr>
+                                <td>set( key , value ) </td>
+                                <td>adicionar um par chave-valor no final do arquivo </td>
+                            </tr>
+                            <tr>
+                                <td>replace( key , value )</td>
+                                <td>actualizar o valor do item *key </td>
+                            </tr>
+                            <tr>
+                                <td>remove( key )</td>
+                                <td>remover o item *key </td>
+                            </tr>
+
+                        </table>
+
+                        <br>
+                        <p>Abaixo temos um exemplo de conteúdo no arquivo .env .</p>
+
+                        <pre>
+    <code class="p-0">
+      ## MY CONFIGS
+      MY_ITEM = VALUE
+
+      ## DATABASE
+      DB_NAME = app_db 
+      DB_HOST = localhost
+      DB_USER =  root
+      DB_PASSWORD =
+     </code>
+  </pre>
+
+                        <h6 class="ttl" id="env_read">Leitura</h6>
+
+                        <pre>
+    <code class="p-0">
+        $db_user = Env::get('DB_USER'); // root 
+   
+        Env::has('MY_ITEM'); // true  
+      </code>
+  </pre>
+
+                        <h6 class="ttl" id="env_insert">inserção de Item</h6>
+
+                        <pre>
+    <code class="p-0">
+      Env::set('MY_ITEM_2' , 'VALUE2'); 
+    </code>
+  </pre>
+
+                        <pre>
+    <code class="p-0">
+      ## MY CONFIGS
+      MY_ITEM = VALUE
+
+      ## DATABASE
+      DB_NAME = app_db 
+      DB_HOST = localhost
+      DB_USER =  root
+      DB_PASSWORD = 
+      MY_ITEM_2 = VALUE2
+    </code>
+  </pre>
+
+
+                        <h6 class="ttl" id="env_drop">Remoção de Item</h6>
+
+                        <pre>
+    <code class="p-0">
+        Env::remove('MY_ITEM');
+        Env::remove('MY_ITEM2');   
+    </code>     
+  </pre>
+
+                        <pre>
+    <code class="p-0">
+      ## MY CONFIGS
+
+      ## DATABASE
+      DB_NAME = app_db 
+      DB_HOST = localhost
+      DB_USER =  root
+      DB_PASSWORD = 
+    </code>
+  </pre>
+
+                        <h6 class="ttl" id="env_update">Actualização de Item</h6>
+
+                        <pre>
+    <code class="p-0">
+        Env::replace('DB_USER', 'carlos');
+     </code>
+  </pre>
+
+                        <pre>
+    <code class="p-0">
+      ## MY CONFIGS
+
+      ## DATABASE
+      DB_NAME = app_db 
+      DB_HOST = localhost
+      DB_USER =  carlos
+      DB_PASSWORD = 
+    </code>
+  </pre>
+
+                    </div>
+
+                    <div class="content" style="margin-left: 20px;">
+                        <h5 class="ttl" id="timer">Timer</h5>
+
+
+                        <pre>
+    <code class="p-0">
+    // current datetime: 2022-01-01 16:10:11 
+
+    Timer::curTimestamp(); // current timestamp
+
+    Timer::today() // 2022-01-01 
+    Timer::now() // 2022-01-01 16:10:11 
+    
+    Timer::tomorrow() // 2022-01-02 
+    Timer::yersterday() // 2021-12-31 
+    
+    Timer::next(5) // 2022-01-06 
+    Timer::next(5 , '2021-12-01' ) // 2021-12-06 
+    
+    Timer::prev(5) // 2021-12-27 
+    Timer::prev(5 , '2021-12-01' ) // 2021-11-26 
+    
+    Timer::fromStr('2021-12-01') // DateTime 
+    Timer::fromStr('2021-12-01', 'Africa/Luanda') // DateTime 
+    
+    Timer::dif('2021-12-01' , '2022-01-01') // DateInterval
+    </code>
+  </pre>
+
+                    </div>
+
+                    <div class="content" style="margin-left: 20px;">
+                        <h5 class="ttl" id="regex">REGEX PATTERNS</h5>
+
+                        <pre>
+    <code class="p-0">
+    // test values
+	$name = "carlos bumba";
+	$isValid = RegexPatterns::test('alfa', $name);
+
+	$ip = '192.111.10.1';
+	$isValid = RegexPatterns::test('ip', $ip);
+
+	$email = 'doe01doe@foo.baz';
+	$isValid = RegexPatterns::test('email', $email);
+
+    /*
+    patterns avaible
+
+    number, digit, p-number, p-decimal-number, zip-code, social-security-number,
+    date, date-str, date-2, date-3, pt_string, pt_alfanum, char, string, alfa,
+    alfa_text, alfa_str, alfanum, alfanum_text, text, _text, datetime-local,
+    datetime, url_title, uuid, email, email-2, email-3, email-4, email-5, ip
+    */
+
+     $date_regex = RegexPatterns::get('date');
+     $all = RegexPatterns::getAll();
+    </code>
+  </pre>
+                    </div>
+
+                    <div class="content" style="margin-left: 20px;">
+                        <h5 class="ttl" id="url">URL</h5>
+
+                        <pre>
+    <code class="p-0">
+    URL::go('/home');
+
+    URL::back();
+    URL::backURL();
+  
+    URL::goToRoute('dashboard-route'); 
+    </code>
+  </pre>
+                    </div>
+
+                    <div class="content mb-5" style="margin-left: 20px;">
+                        <h5 class="ttl" id="functions">Funções</h5>
+
+                        <table class="table mt-3">
+                            <tr class="bg-primary text-light">
+                                <td>função</td>
+                                <td>usado para</td>
+                            </tr>
+
+                            <tr>
+                                <td>auth()</td>
+                                <td>retornar a instância da classe Auth </td>
+                            </tr>
+
+                            <tr>
+                                <td>app( key )</td>
+                                <td>retornar a instância de uma dependência registrada por *app_register </td>
+                            </tr>
+
+                            <tr>
+                                <td>app_register( key , instance )</td>
+                                <td>registrar uma dependência</td>
+                            </tr>
+
+                            <tr>
+                                <td>app_log()</td>
+                                <td>retornar a instância do Logger da aplicação </td>
+                            </tr>
+
+                            <tr>
+                                <td>route( name , params )</td>
+                                <td>retornar a URL de uma rota nomeada </td>
+                            </tr>
+
+                            <tr>
+                                <td>timer()</td>
+                                <td>retornar a instância de Timer </td>
+                            </tr>
+
+                            <tr>
+                                <td>_dump( ...arg )</td>
+                                <td>usar a classe VarDumpper e mostrar o conteúdo de variáveis </td>
+                            </tr>
+
+                            <tr>
+                                <td>response( content , status = 200 , headers = [] )</td>
+                                <td>enviar uma resposta ao cliente</td>
+                            </tr>
+
+                            <tr>
+                                <td>json_response( content , status = 200 , headers = [] )</td>
+                                <td>enviar uma resposta JSON ao cliente</td>
+                            </tr>
+
+                            <tr>
+                                <td>redirect( to )</td>
+                                <td>redirecionamento</td>
+                            </tr>
+
+                            <tr>
+                                <td>view( render , params , status = 200 , headers = [] )</td>
+                                <td>renderizar um template no directório *renders </td>
+                            </tr>
+
+                            <tr>
+                                <td>display( template , status = 200 , headers = [] )</td>
+                                <td>renderizar um template no directório *templates </td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+
+                    <div class="content mb-5" style="margin-left: 20px;">
+
+                        <pre>
+    <code class="p-0">
+    auth()->getUser(); 
+    auth()->isLogged(); 
+    auth()->isAdmin(); 
+       
+    app_log()->info('user: carlos logged in'); 
+    app_log()->warn('db error'); 
+    
+    timer()->now(); 
+    timer()->today(); 
+    
+    view('page.html' , ['username' => 'carlos']); 
+    view('401.html' , ['message' => 'unauthorized'] , 401); 
+    view('401.html' , ['message' => 'unauthorized'] , 401 , [ 'X-Error' => true ]); 
+       
+    display('page.html'); 
+    display('401.html', 401); 
+    display('401.html' , 401 , [ 'X-Error' => true ]);  
+    </code>
+  </pre>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <script src="../assets/css/highlight/highlight.min.js"></script>
+    <script src="../assets/css/highlight/php.min.js"></script>
+    <script src="../assets/js/scripts-min.js"></script>
+</body>
+
+</html>

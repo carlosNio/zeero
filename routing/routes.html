@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="zeero framework, zeero fw, php framework, zeero, zeero php">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>
+		Zeero Framework - Rotas
+	</title>
+
+	<link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/all.min.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/style.min.css">
+	<link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/v4-shims.min.css">
+
+	<link rel="stylesheet" href="../assets/css/highlight/atom-one-dark-reasonable.min.css">
+
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+	<header class="px-5 p-2" id="pg-header">
+		<div class="d-flex align-items-center justify-content-between">
+			<h4 id="title">ZEERO
+				<span class="bt-text">FRAMEWORK</span>
+			</h4>
+			<div>
+				<a href="#" class="btn">
+					<i class="fa fa-github"></i>
+					<span class="bt-text">
+						REPOSITÓRIO
+					</span>
+				</a>
+				<a href="#" class="btn">
+					<i class="fa fa-code"></i>
+					<span class="bt-text">
+						DESENVOLVEDOR
+					</span>
+				</a>
+				<button class="btn" id="barsBtn" onclick="openSidebar()">
+					<i class="fa fa-bars"></i>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="p-2 text-center" id="sections">
+		<a href="../index.html" class="sct">INTRODUÇÃO</a>
+		<a href="../routing/routes.html" class="sct" id="active">ROUTING</a>
+		<a href="../database/zeero-orm.html" class="sct">DATABASE</a>
+		<a href="../core/facades.html" class="sct">CORE</a>
+		<a href="../zeero-cli.html" class="sct">ZCLI</a>
+
+
+	</div>
+
+	<section class="" id="sct-content">
+
+		<div class="row m-0" id="grid">
+			<!-- sidebar -->
+			<div class="col col-12 col-md-2 col-lg-2" id="sidebar">
+				<div class="p-1">
+
+					<div id="onMobile" class="navbar mb-3 text-muted">
+						<h4 class="m-0">ZEERO DOCS</h4>
+						<button class="btn text-muted" onclick="openSidebar()">
+							<i class="fa fa-times fa-2x"></i>
+						</button>
+					</div>
+
+					<a href="../routing/routes.html" id="active" class="sct">ROTAS</a>
+
+					<a href="http-responses.html">RESPONSE</a>
+
+					<a href="router.html">ROUTER</a>
+
+					<a href="form-validator.html">FORM VALIDATOR</a>
+
+					<a href="json-resources.html">JSON RESOURCES</a>
+
+					<a href="error-page.html">ERROR PAGE</a>
+
+				</div>
+			</div>
+
+			<!-- content -->
+			<div class="col col-12 col-lg-10 col-md-10" id="content-div">
+
+				<div class="px-3 mt-2 content">
+
+					<h5 class="ttl mt-3">
+						ROTAS DA APLICAÇÃO
+					</h5>
+
+					<br>
+
+					<p>Na Aplicação, as rotas são criadas usando um instância da classe
+						<b>Zeero\DataBase\Route</b>,
+						esta classe disponibliza um conjunto de metódos que facilitam o trabalho. É no arquivo
+						<b>App/routes.php</b>
+						onde podemos encontrar e criar rotas.
+					</p>
+
+					<br>
+					<h5 class="ttl">
+						<li>
+							Assinatura das funções de rotas
+						</li>
+					</h5>
+
+					<pre style="margin: 0 !important;">
+              <code class="">
+    metodo_http(string $route, closure|array $action = null, bool $auth = false, int|array $level = null) 
+            </code>
+            </pre>
+
+					<p>Detalhes:</p>
+
+					<table class="table table-bordered table-hover">
+						<tr class="bg-primary text-light">
+							<th>Paramêtro</th>
+							<th>Descrição</th>
+						</tr>
+						<tr>
+							<td>
+								<span class="identifier-constant">$route</span>
+							</td>
+							<td>a URL da rota</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="identifier-constant">$action</span>
+							</td>
+							<td>A ação</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="identifier-constant">$auth</span>
+							</td>
+							<td>define se um usuário deve estar ou não logado</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="identifier-constant">$level</span>
+							</td>
+							<td>define o nível de usuário requerido para essa rota
+							</td>
+						</tr>
+					</table>
+
+					<br>
+
+					<h5 id="methods">Metódos Principais da classe Zeero\Router\Route</h5>
+					<br>
+
+					<pre>
+            <code class="">
+    $app->get('/rota' , [ ] );
+    $app->head('/rota' , [ ] );
+    $app->post('/rota' , [ ] );
+    $app->put('/rota' , [ ] );
+    $app->patch('/rota' , [ ] );
+    $app->delete('/rota' , [ ] );
+        
+    $app->setControllerRoutes('MyController' , [
+            '/route-1' => ['HTTP-method' , 'Controller-method-1' , 'auth' , 'level' ],
+            '/route-2' => ['HTTP-method' , 'Controller-method-2' , 'auth' , 'level' ],
+    ]);
+        
+    $app->any('/rota' , [ ] );
+    $app->match(['get' , 'head'] , '/rota' , [ ] ); 
+            </code>
+          </pre>
+
+					<h5 id="definicao" class="ttl">
+						<li>
+							DESPACHE
+						</li>
+					</h5>
+
+					<br>
+					<h6>
+						<li>
+							Usando Closure
+						</li>
+					</h6>
+
+					<br>
+					<p>Nesse tipo de Despache, é passado uma função callback no segundo argumento que será chamada pelo
+						Router
+						no
+						momento do
+						despache.
+					</p>
+
+					<pre>
+              <code class="">
+    $app->get('/[rota]' , function(){
+           // ...
+    });
+            </code>
+            </pre>
+
+					<h6>
+						<li>
+							Usando método de uma Classe
+						</li>
+					</h6>
+
+					<br>
+					<p>Nesse tipo de Despache, é definido um array no segundo argumento , contendo dois items: a
+						<b>classe</b>
+						e
+						o
+						<b>método</b>
+						.
+					</p>
+
+					<pre>
+              <code class="">
+    $app->get('/[rota]' , [ 'classe' , 'metódo' ] ); 
+              </code>
+            </pre>
+
+					<h5 class="ttl">
+						<li id="route_params">
+							Rota com Paramêtros
+						</li>
+					</h5>
+
+					<pre>
+            <code class="">
+        // Paramêtro Obrigatório 
+    $app->get('/posts/{id}' , [ '' , ''] );
+                  
+        // Paramêtro Opcional 
+    $app->get('/posts/{slug}/{?id}' , [ '' , '' ] );  
+            </code>
+        </pre>
+
+					<div class="alert">
+						<p>
+							No Acto do Despache , se a rota tiver um paramêtro , este poderá ser usado, passando-o como
+							argumento
+							da função ou metódo, e o Router fará
+							<b>Injeção de Dependência.</b>
+						</p>
+						<p>
+							<b>O Nome do argumento da função ou metódo deve correponder ao nome do paramêtro na
+								rota.</b>
+						</p>
+					</div>
+
+
+					<pre>
+            <code class="">
+        // usando o valor do paramêtro
+    $app->get('/users/{name}/{country}' , function($name , $country){
+            ...
+    });
+
+        // Injecão de Dependência
+    $app->get('/users/{name}' , function( Request $request, $name){
+            ...
+    }); 
+            </code>
+        </pre>
+
+					<h5 class="ttl">
+						<li id="route_name">
+							Rota Nomeadas
+						</li>
+					</h5>
+
+					<br>
+
+					<p>Nomear rotas ajuda no roteamento dentro da aplicação , assim como na necessidade obter a URL de
+						uma rota.</p>
+
+					<pre>
+  <code class="">
+    $app->get('/posts/{id}/edit' , [ '' , '' ] )->name('edit-post-route');  
+
+    $route = Route::route('edit-post-route' , [ 'id' => 16 ]); // /posts/16/edit 
+   
+    $app->get('/posts/{slug}/{}' , [ '' , '' ] )->name('post-route');  
+   
+    $route = Route::route('post-route' , [ 'id' => 16 ]); // /posts/{slug}/16 
+    $route = Route::route('post-route' , [ 'slug' => 'php-programming' ]); // /posts/php-programming 
+    $route = Route::route('post-route' , [ 'slug' => 'php-programming', 'id' => 16 ]); // /posts/php-programming/16
+</code>
+</pre>
+
+					<br>
+
+					<h5 class="ttl">
+						<li>Validação dos Paramêtros</li>
+					</h5>
+
+
+					<br>
+					<p>É possível definir o tipo de valor que um paramêtro da rota deve ter para ser despachado , para
+						isso o
+						<i>Route</i>
+						disponibliza o metódo
+						<b>where( array )</b>.
+					</p>
+					<p>O Array Associativo passado para essa função deverá conter o nome do argumento e a expressão
+						regular para
+						o
+						teste.
+					</p>
+
+					<pre>
+  <code class="">
+    $app->get('/posts/{id}' , ['' , ''])->where( [ "id" => "\d+" ] ); // apenas números 
+
+    $app->get('/users/{name}' , ['' , ''])->where( [ "name" => "[a-zA-Z\s]+" ] ); // apenas strings 
+   
+    $app->get('/users/{id}' , ['' , ''])->where( [ "name" => "uuid" ] ); // apenas strings uuid
+
+</code>
+</pre>
+
+					<br>
+					<h5 class="ttl">
+						<li id="route_off">Rota Deslogada</li>
+					</h5>
+
+
+					<br>
+					<p>Esse Tipo de Rota é despachada de acordo com o estado actual da aplicação, pode ser despachada
+						apenas se
+						um
+						usuário não está logado.
+					</p>
+					<p>É útil para rotas como
+						<b>/login</b>
+						que só está disponível quando um usuário não está logado ,
+						caso
+						contrário
+						há um
+						<b>redirecionameto</b>
+						.</p>
+					<br>
+
+					<pre>
+<code class="">
+    route_not_logged(bool $auth = false, int|array $level = null , string $redirect = '' ) 
+</code>
+</pre>
+
+					<br>
+					<table class="table table-bordered table-hover">
+						<tr class="bg-primary text-light">
+							<th>Paramêtro</th>
+							<th>Descrição</th>
+						</tr>
+						<tr>
+							<td>
+								<span class="identifier-constant">$auth</span>
+							</td>
+							<td>quando
+								<b>true</b>
+								define que o usuário não deve estar logado</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="identifier-constant">$level</span>
+							</td>
+							<td>define o nível de usuário que não deve estar logado</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="identifier-constant">$redirect</span>
+							</td>
+							<td>define a URL de redirecionameto caso o usuário esteja logado.
+							</td>
+						</tr>
+					</table>
+
+					<br>
+
+					<h5 id="definicao">
+						<li>
+							Exemplos</li>
+					</h5>
+
+					<br>
+					<h6>
+					</h6>
+					<li>
+						Rotas para usuários não logados , caso contrário redirecionar para
+						<b>/profile
+						</b>
+						.</li>
+
+					<br>
+
+					<pre>
+    <code class="">
+    $app->get('/login' , function(){})->route_not_logged(true, null , '/home'); 
+    </code>
+    </pre>
+
+
+					<h5 class="ttl">
+						<li id="resource">Recursos REST</li>
+					</h5>
+					<br>
+
+					<p>A classe Route possui o metódo
+						<b class="text-dark">resource()</b>
+						que serve para criar
+						rotas
+						REST para um determinado recurso, este metódo tem como primeiro argumento principal o
+						<b>nome</b>
+						do
+						recurso nas
+						rotas, e como segundo argumento o nome do
+						<b>controller</b>
+						que possui os metódos de ação para
+						cada
+						requisição.
+					</p>
+					<br>
+					<p>Esse metódo está sugeito á dois outros argumentos:
+						<b>auth</b>
+						e
+						<b>level</b>
+						.
+					</p>
+
+					<pre>
+                <code class="p-0">
+    $app->resource('posts' , PostController::class); 
+                </code>
+            </pre>
+
+					<p>Após essa instrução , o Route irá registrar as seguintes rotas:
+					</p>
+					<br>
+
+					<table class="table table-hover">
+						<tr class="bg-primary text-light">
+							<th>metódo HTTP</th>
+							<th>rota</th>
+							<td>metódo do controller
+							</td>
+						</tr>
+
+						<tr>
+							<td>GET / HEAD</td>
+							<td>/posts</td>
+							<td>index()</td>
+						</tr>
+
+
+						<tr>
+							<td>POST</td>
+							<td>/posts</td>
+							<td>store()</td>
+						</tr>
+
+						<tr>
+							<td>GET / HEAD</td>
+							<td>/posts/create</td>
+							<td>create()</td>
+						</tr>
+
+						<tr>
+							<td>GET / HEAD</td>
+							<td>/posts/{id}</td>
+							<td>show(id)</td>
+						</tr>
+
+						<tr>
+							<td>GET / HEAD</td>
+							<td>/posts/{id}/edit</td>
+							<td>edit(id)</td>
+						</tr>
+
+						<tr>
+							<td>PUT / PATCH</td>
+							<td>/posts/{id}</td>
+							<td>update(id)</td>
+						</tr>
+
+						<tr>
+							<td>DELETE</td>
+							<td>/posts/{id}</td>
+							<td>destroy(id)</td>
+						</tr>
+
+					</table><br>
+					<h5>
+						<li id="group" class="ttl">Grupo de Rotas</li><br>
+					</h5>
+					<p>Rotas com atributos semelhantes podem ser agrupadas, estes atributos podem
+						ser<b>auth</b>,<b>level</b>e<b>not_logged</b>. Que
+						poderiam também ser definidos individualmente em cada rota</p>
+					<p>Com a definição de grupo de rotas, um novo atributo é disponiblizado<b>prefix</b>que o
+						correponde ao
+						préfixo
+						de um grupo na URL.</p><br>
+					<pre>
+    <code class="p-0">
+        // rotas para usuários autênticados
+    $app->group([ 'auth' => true ] , function(Route $group){});
+        
+        // rotas para visitantes  
+    $app->group([ 'not_logged' => [ true , null , '/' ] ] , function(Route $group){});
+        
+        // rotas para usuários autênticados e do nível 2
+    $app->group([ 'auth' => true, 'user_level' => 2 ] , function(Route $group){});
+        
+        
+        // rotas para usuários autênticados e com o prefixo '/dashboard' 
+    $app->group([ 'auth' => true, 'prefix' => '/dashboard' ] , function(Route $group){
+        
+          	//rota: prefixo + rota = '/dashboard' + '/users' = '/dashboard/users' 
+    		$group->get('/users' , function(){}); 
+     });
+        
+     
+        // grupos aninhados 
+    $app->group([ 'prefix' => '/api' ] , function(Route $group){
+           
+            //rota: prefixo + rota = '/api' + '/users' = '/api/users' 
+ 	    $group->get('/users' , function(){}); 
+     
+           //rota: prefixo + rota = '/api' + '/products' = '/api/products' 
+    	   $group->group([ 'prefix' => '/products' ] , function(Route $secondGroup){
+              
+            	//rota: prefixo + rota = '/api/products' + '/create' = '/api/products/create' 
+    		$secondGroup->get('/create' , function(){}); 
+    	   });
+    });  
+    </code>
+  </pre>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+
+	<script src="../assets/css/highlight/highlight.min.js"></script>
+	<script src="../assets/css/highlight/php.min.js"></script>
+	<script src="../assets/js/scripts-min.js"></script>
+</body>
+
+</html>

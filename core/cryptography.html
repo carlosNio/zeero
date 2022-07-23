@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="zeero framework, zeero fw, php framework, zeero, zeero php">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>
+		Zeero Framework - Crypto
+	</title>
+
+	<link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/all.min.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/style.min.css">
+	<link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/v4-shims.min.css">
+
+	<link rel="stylesheet" href="../assets/css/highlight/atom-one-dark-reasonable.min.css">
+
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+	<header class="px-5 p-2" id="pg-header">
+		<div class="d-flex align-items-center justify-content-between">
+			<h4 id="title">ZEERO
+				<span class="bt-text">FRAMEWORK</span>
+			</h4>
+			<div>
+				<a href="#" class="btn">
+					<i class="fa fa-github"></i>
+					<span class="bt-text">
+						REPOSITÓRIO
+					</span>
+				</a>
+				<a href="#" class="btn">
+					<i class="fa fa-code"></i>
+					<span class="bt-text">
+						DESENVOLVEDOR
+					</span>
+				</a>
+				<button class="btn" id="barsBtn" onclick="openSidebar()">
+					<i class="fa fa-bars"></i>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="p-2 text-center" id="sections">
+		<a href="../index.html" class="sct">INTRODUÇÃO</a>
+		<a href="../routing/routes.html" class="sct">ROUTING</a>
+		<a href="../database/zeero-orm.html" class="sct">DATABASE</a>
+		<a href="../core/facades.html" class="sct" id="active">CORE</a>
+		<a href="../zeero-cli.html" class="sct">ZCLI</a>
+
+
+	</div>
+
+	<section class="" id="sct-content">
+
+		<div class="row m-0" id="grid">
+			<!-- sidebar -->
+			<div class="col col-12 col-md-2 col-lg-2" id="sidebar">
+				<div class="p-1">
+
+					<div id="onMobile" class="navbar mb-3 text-muted">
+						<h4 class="m-0">ZEERO DOCS</h4>
+						<button class="btn text-muted" onclick="openSidebar()">
+							<i class="fa fa-times fa-2x"></i>
+						</button>
+					</div>
+
+					<a href="../core/facades.html" class="sct">FACADES</a>
+
+					<a href="helpers.html">HELPERS</a>
+
+					<a href="cryptography.html" id="active">CRYPTO</a>
+
+				</div>
+			</div>
+
+			<!-- content -->
+			<div class="col col-12 col-lg-10 col-md-10" id="content-div">
+
+				<div class="px-3 mt-2 content">
+					<h5 class="ttl my-3">
+					</h5>
+					<li>Zeero\Core\Crypto\Crypto</li>
+
+					<br>
+
+					<p>
+						Essa Classe contém duas finalidades: <b>criptografar</b> e
+						<b>decriptografar</b> textos e arquivos.
+					</p>
+					<p>
+						O Metódo de crifra padrão é o <i>AES-256-CBC</i>, e a chave
+						utilizada é a definida no arquivo <a href="#">.env</a> no item
+						APP_KEY.
+					</p>
+
+					<pre>
+        <code class="p-0">
+    // encrypt text
+    $encrypted = Crypto::encryptText('message to send');
+        
+    // decrypt text
+    $decrypted = Crypto::decryptText($encrypted);
+        
+    // change the cipher method 
+    //throws InvalidArgumentException if the cipher method is not in openssl_get_cipher_methods() array 
+    Crypto::setMethod('cipher method');
+        
+    // change the key   
+    Crypto::setKey('my secret key');
+     
+    // encrypt file
+    // file.json.enc if success , throws NotFoundException if the file not exists 
+    $encrypted_filename = Crypto::encryptFile('file.json' , 'file.json.enc');
+    
+    // decrypt file
+    // file.json.dec if success 
+    $decrypted_filename = Crypto::encryptFile($encrypted_filename , 'file.json.dec');      
+        </code>
+      </pre>
+
+					<br>
+					<h5 class="ttl">
+					</h5>
+					<li>Zeero\Core\Crypto\Hashing</li>
+
+					<br>
+
+					<p>
+						Essa classe tem duas finalidades:
+						<b>gerar token ou id randômica</b> ,
+						<b>gerar e verificar hash ( via password_hash() ). </b>
+					</p>
+
+					<pre>
+      <code class="p-0">
+    $bytes = 6;
+    $token = Hashing::random_token($bytes);
+    
+    $id = Hashing::random_id();
+     
+    // generate a hash with BCRYPT ALGORITHM ( default id: 2) 
+    $password = Hashing::hash('1234321');
+       
+    // generate a hash with PASSWORD_DEFAULT ALGORITHM ( id: 1 ) 
+    $password = Hashing::hash('1234321' , 1);
+    
+    // generate a hash with BCRYPT ALGORITHM and COST 13 ( default cost: 11) 
+    $password = Hashing::hash('1234321' , 2 , 13);
+     
+    // verify a hashed password
+    $hashed = '$2y$11$UuCehXFyGvP/h.xyV26AgeN4WiynN4KNnliJS53nMznAKYOo5Osgq';
+    $ok = Hashing::verify_hash('1234321' , $hashed); 
+      </code>
+    </pre>
+
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+
+	<script src="../assets/css/highlight/highlight.min.js"></script>
+	<script src="../assets/css/highlight/php.min.js"></script>
+	<script src="../assets/js/scripts-min.js"></script>
+</body>
+
+</html>

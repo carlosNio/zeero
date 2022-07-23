@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="zeero framework, zeero fw, php framework, zeero, zeero php">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>
+		Zeero Framework - QueryBuilders
+	</title>
+
+	<link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/all.min.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/style.min.css">
+	<link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/v4-shims.min.css">
+
+	<link rel="stylesheet" href="../assets/css/highlight/atom-one-dark-reasonable.min.css">
+
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+	<header class="px-5 p-2" id="pg-header">
+		<div class="d-flex align-items-center justify-content-between">
+			<h4 id="title">ZEERO
+				<span class="bt-text">FRAMEWORK</span>
+			</h4>
+			<div>
+				<a href="#" class="btn">
+					<i class="fa fa-github"></i>
+					<span class="bt-text">
+						REPOSITÓRIO
+					</span>
+				</a>
+				<a href="#" class="btn">
+					<i class="fa fa-code"></i>
+					<span class="bt-text">
+						DESENVOLVEDOR
+					</span>
+				</a>
+				<button class="btn" id="barsBtn" onclick="openSidebar()">
+					<i class="fa fa-bars"></i>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="p-2 text-center" id="sections">
+		<a href="../index.html" class="sct">INTRODUÇÃO</a>
+		<a href="../routing/routes.html" class="sct">ROUTING</a>
+		<a href="../database/zeero-orm.html" class="sct" id="active">DATABASE</a>
+		<a href="../core/facades.html" class="sct">CORE</a>
+		<a href="../zeero-cli.html" class="sct">ZCLI</a>
+
+
+	</div>
+
+	<section class="" id="sct-content">
+
+		<div class="row m-0" id="grid">
+			<!-- sidebar -->
+			<div class="col col-12 col-md-2 col-lg-2" id="sidebar">
+				<div class="p-1">
+
+					<div id="onMobile" class="navbar mb-3 text-muted">
+						<h4 class="m-0">ZEERO DOCS</h4>
+						<button class="btn text-muted" onclick="openSidebar()">
+							<i class="fa fa-times fa-2x"></i>
+						</button>
+					</div>
+
+					<a href="../database/zeero-orm.html" class="sct">ORM</a>
+
+					<a href="query-builders.html" id="active">QUERY BUILDER</a>
+
+					<a href="table-migrations.html">MIGRATIONS</a>
+
+					<a href="seeds.html">SEEDS</a>
+
+				</div>
+			</div>
+
+			<!-- content -->
+			<div class="col col-12 col-lg-10 col-md-10" id="content-div">
+
+				<div class="px-3 mt-2 content">
+					<h5 class="ttl mt-4">
+						QUERY BUILDERS
+					</h5>
+
+					<br>
+					<p>QueryBuilders são componentes que geram SQL apartir de uma interface Orientada a Objectos. Para
+						cada operação do
+						CRUD tem disponível uma classe com o mesmo nome, que oferece metódos para gerar SQL.
+					</p>
+<br>
+					<p>Estas classes se limitam apenas a retornar strings SQL , para a execução dessas mesmas strings é
+						recomandado o
+						uso do Helper
+						<i>DataBase</i>
+						.</p>
+
+					<div class="mt-4">
+						<h5 class="ttl mt-4 mb-2">Select QueryBuilder
+						</h5>
+
+						<pre>
+                <code class="p-0">
+	__construct(string $table, bool $distinct = false)
+                </code>
+                </pre>
+
+						<p>A lista abaixo mostra os metódos disponíveis para instâncias dessa classe.
+						</p>
+
+						<table class="table table-hover mb-5">
+							<tr class="bg-primary text-light">
+								<th>metódo</th>
+								<td>usado para</td>
+							</tr>
+
+							<tr>
+								<td>fields</td>
+								<td>introduzir colunas de resultado
+								</td>
+							</tr>
+
+							<tr>
+								<td>having</td>
+								<td>introduzir a cláusula HAVING
+								</td>
+							</tr>
+
+							<tr>
+								<td>group</td>
+								<td>introduzir a cláusula GROUP BY
+								</td>
+							</tr>
+
+							<tr>
+								<td>order</td>
+								<td>introduzir a cláusula ORDER BY
+								</td>
+							</tr>
+
+							<tr>
+								<td>limit</td>
+								<td>introduzir a cláusula LIMIT
+								</td>
+							</tr>
+
+							<tr>
+								<td>leftSemiJoin</td>
+								<td>gerar string LEFT SEMI JOIN
+								</td>
+							</tr>
+
+							<tr>
+								<td>rightSemiJoin</td>
+								<td>gerar string RIGHT SEMI JOIN
+								</td>
+							</tr>
+
+						</table>
+
+
+						<div class="row">
+
+							<!--  -->
+							<div class="col col-12 col-md-4 col-lg-4">
+
+								<table class="table table-hover">
+									<tr class="bg-primary text-light">
+										<th>metódo</th>
+									</tr>
+
+									<tr>
+										<td>where</td>
+									</tr>
+									<tr>
+										<td>and</td>
+									</tr>
+									<tr>
+										<td>or</td>
+									</tr>
+
+								</table>
+
+							</div>
+
+							<!--  -->
+							<div class="col col-12 col-md-4 col-lg-4">
+
+								<table class="table table-hover">
+									<tr class="bg-primary text-light">
+										<th>metódo</th>
+									</tr>
+									<tr>
+										<td>when</td>
+									</tr>
+									<tr>
+										<td>then</td>
+									</tr>
+									<tr>
+										<td>then_else</td>
+									</tr>
+									<tr>
+										<td>endAs</td>
+									</tr>
+
+								</table>
+
+							</div>
+
+							<!--  -->
+							<div class="col col-12 col-md-4 col-lg-4">
+
+								<table class="table table-hover">
+									<tr class="bg-primary text-light">
+										<th>metódo</th>
+									</tr>
+
+									<tr>
+										<td>join</td>
+									</tr>
+
+									<tr>
+										<td>on</td>
+									</tr>
+
+								</table>
+
+							</div>
+							<br>
+
+						</div>
+
+						<h5 id="select">Exemplos</h5>
+
+						<pre>
+    <code class="p-0">
+    $select = new Select('user_table');
+    $select->fields(['username' , 'level']);
+    
+    $select->limit(5);
+    $select->order('id DESC');
+    $select->group('created_at');
+    $select->having('count(*) >= 10');
+    
+    $sql = $select->leftSemiJoin('user.id' , 'user_id');
+    $sql = $select->rightSemiJoin('user_id' , 'user.id');
+      
+    $sql = $select->results(); 
+    </code>
+  </pre>
+
+						<h6 class="topic ttl mt-4">SELECT WHERE</h6>
+
+						<pre>
+    <code class="p-0">
+    $select = new Select('user_table');
+    $select->fields(['username' , 'level']);
+      
+    $select->where('username = ?' , [ 'carlos' ]);
+    $select->or('username like ? ' , [ '%carlos%' ]); 
+    $select->and('level > ? ' , [ 1 ]); 
+      
+    $sql = $select->results(); 
+    </code>
+  </pre>
+
+						<h6 class="topic ttl mt-4">SELECT CASE</h6>
+
+						<pre>
+    <code class="p-0">
+    $select = new Select('user_table');
+
+    $select->fields(['username']);
+      
+    $select->when('id > ?' , [45])
+        ->then(' "big"')
+        ->then_else(' "small" ')
+        ->endAs('id_size');
+      
+    $sql = $select->results(); 
+    </code>
+  </pre>
+
+						<h6 class="topic ttl mt-4">SELECT JOIN</h6>
+
+						<pre>
+    <code class="p-0">
+    $select = new Select('user_table');
+
+    $select->fields(['username']);
+    
+    $select->join( 'posts' , ['title']);
+    $select->on( 'post.user_id' , 'user.id' ) ;
+    $select->makeJoin('inner'); // inner , left , right , full outer 
+      
+    $sql = $select->results();
+    </code>
+  </pre>
+
+						<h6 class="topic ttl mt-4">SUBSELECTS</h6>
+
+						<pre>
+    <code class="p-0">
+    $selectIds = new Select('post_table');
+    $selectIds->fields(['user_id']);
+      
+    $select = new Select('user_table');
+    $select->fields(['username']);
+      
+    $select->where("user.id IN {$SelectIds} ");
+    $select->appendSubSelect($SelectIds);
+    
+    $sql = $select->results(); 
+</code>
+  </pre>
+
+					</div>
+
+					<br>
+
+					<div id="insert">
+						<h5 class="ttl">Insert QueryBuilder</h5>
+
+
+						<pre>
+    <code class="p-0">
+    $insert = new Insert('post_table');
+
+    $insert->add([
+      'title' => 'The New PHP 8 ',
+      'slug' => 'the-new-php-8',
+      'user_id' => 16,
+    ]);
+      
+    $sql = $insert->results();
+    </code>
+      </pre>
+					</div>
+
+					<br>
+
+					<div id="delete">
+						<h5 class="ttl">Delete QueryBuilder</h5>
+
+						<pre>
+    <code class="p-0">
+    $delete = new Delete('user_table');
+
+    $delete->where('post_id > ?' , [30]);
+      
+    $delete->order('post_id DESC');
+    $delete->limit(5);
+      
+    $sql = $delete->results();
+      
+    // delete with join 
+    $delete->join('post');
+    $delete->on('post.user_id' , 'user.id');
+    
+    $delete_join = $delete->makeJoin();
+    </code>
+  </pre>
+
+					</div>
+
+					<br>
+
+					<div id="update">
+						<h5 class="ttl">Update QueryBuilder</h5>
+
+						<pre>
+    <code class="p-0">
+    $update = new Update('user_table');
+
+    $update->where('post_id = ?' , [30]);
+      
+    $update->limit(5);
+      
+    $sql = $update->results();
+      
+    // bulk update 
+    $bulk_update = $update->bulk_update('tag' , [ 'id' , [12 , 56 , 67] , [ 'ruby' , 'c++' , 'cobol' ] ]);
+    </code>
+  </pre>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+
+	<script src="../assets/css/highlight/highlight.min.js"></script>
+	<script src="../assets/css/highlight/php.min.js"></script>
+	<script src="../assets/js/scripts-min.js"></script>
+</body>
+
+</html>

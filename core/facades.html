@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="zeero framework, zeero fw, php framework, zeero, zeero php">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Zeero Framework - Facades
+    </title>
+
+    <link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/style.min.css">
+    <link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/v4-shims.min.css">
+
+    <link rel="stylesheet" href="../assets/css/highlight/atom-one-dark-reasonable.min.css">
+
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+    <header class="px-5 p-2" id="pg-header">
+        <div class="d-flex align-items-center justify-content-between">
+            <h4 id="title">ZEERO
+                <span class="bt-text">FRAMEWORK</span>
+            </h4>
+            <div>
+                <a href="#" class="btn">
+                    <i class="fa fa-github"></i>
+                    <span class="bt-text">
+                        REPOSITÓRIO
+                    </span>
+                </a>
+                <a href="#" class="btn">
+                    <i class="fa fa-code"></i>
+                    <span class="bt-text">
+                        DESENVOLVEDOR
+                    </span>
+                </a>
+                <button class="btn" id="barsBtn" onclick="openSidebar()">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="p-2 text-center" id="sections">
+        <a href="../index.html" class="sct">INTRODUÇÃO</a>
+        <a href="../routing/routes.html" class="sct">ROUTING</a>
+        <a href="../database/zeero-orm.html" class="sct">DATABASE</a>
+        <a href="../core/facades.html" class="sct" id="active">CORE</a>
+        <a href="../zeero-cli.html" class="sct">ZCLI</a>
+
+
+    </div>
+
+    <section class="" id="sct-content">
+
+        <div class="row m-0" id="grid">
+            <!-- sidebar -->
+            <div class="col col-12 col-md-2 col-lg-2" id="sidebar">
+                <div class="p-1">
+
+                    <div id="onMobile" class="navbar mb-3 text-muted">
+                        <h4 class="m-0">ZEERO DOCS</h4>
+                        <button class="btn text-muted" onclick="openSidebar()">
+                            <i class="fa fa-times fa-2x"></i>
+                        </button>
+                    </div>
+
+                    <a href="../core/facades.html" id="active" class="sct">FACADES</a>
+
+                    <a href="helpers.html">HELPERS</a>
+
+                    <a href="cryptography.html">CRYPTO</a>
+
+                </div>
+            </div>
+
+            <!-- content -->
+            <div class="col col-12 col-lg-10 col-md-10" id="content-div">
+
+                <div class="px-3 mt-2 content">
+                    <h5 class="ttl topic"> Facades </h5>
+                    <br>
+                    <p>O Zeero possui um conjunto de <i>facades</i> ( classes fachadas ) que facilitam operações ou o
+                        uso de classes
+                        com interfaces complexas. </p>
+                    <ul class="entries">
+
+                        <li style="list-style-type: circle !important;"><a href="#request">Request</a> - facilita o uso
+                            da classe
+                            <i>HttpFoundation\Request</i>
+                        </li>
+
+                        <li style="list-style-type: circle !important;"><a href="#form_request">FormRequest</a> - extrai
+                            os dados da
+                            Requisição apartir da classe
+                            <i>HttpFoundation\Request</i> </li>
+
+                        <li style="list-style-type: circle !important;"><a href="#session">Session</a> - facilita o uso
+                            da classe
+                            <i>HttpFoundation\Session\Session</i> </li>
+
+                        <li style="list-style-type: circle !important;"><a href="#flash">Flash</a> - facilita o uso da
+                            classe
+                            <i>HttpFoundation\Session\Flash\FlashBag</i> </li>
+
+                        <li style="list-style-type: circle !important;"><a href="#cookie">Cookie</a> - facilita o uso do
+                            attributo *cookies
+                            da classe
+                            <i>HttpFoundation\Request</i> </li>
+
+                        <li style="list-style-type: circle !important;"><a href="#uploadedFile">UploadedFile</a> -
+                            facilita o uso da classe
+                            <i>HttpFoundation\FileBag</i> e implementa alguns metódos utilitários </li>
+
+                        <li style="list-style-type: circle !important;"><a href="#schema">Schema</a> - disponibliza
+                            metódos para criação e
+                            alteração de estrutura da
+                            base de dados
+                        </li>
+
+                    </ul><br>
+
+                    <br>
+                    <h5 id="request" class="ttl">Request</h5>
+
+                    <pre>
+  <code class="p-0">
+    Request::method(); // retorna o actual metódo da Requisição
+   
+    Request::uri(); // retorna a actual URI da Requisição
+       
+    Request::isAjax(); // testa se é uma Requisição AJAX 
+       
+    Request::isMethod('POST'); // testa se o actual metódo da Requisição é POST  
+  </code>
+</pre>
+
+                    <br>
+                    <h5 id="form_request" class="ttl">Form Request</h5>
+
+                    <pre>
+  <code class="p-0">
+    FormRequest::all(); // retorna todos os dados do formulário 
+   
+    FormRequest::all_get(); // retorna todos os dados GET 
+    
+    FormRequest::getContent(); // retorna todos os dados do php://input 
+     
+    FormRequest::get('username'); // retorna o valor do campo 'username' do formulário 
+       
+    FormRequest::has('username'); // retorna se o campo 'username' está no formulário  
+  </code>
+</pre>
+
+                    <br>
+                    <h5 id="session" class="ttl">Session</h5>
+
+                    <pre>
+  <code class="p-0">
+    Session::all(); // retorna todos os dados de sessão 
+
+    Session::set('username', 'jane doe'); // adiciona um novo item as sessões 
+       
+    Session::get('username'); // retorna o valor da sessão 'username' 
+       
+    Session::has('username'); // retorna se o item 'username' está no presente nas sessões 
+        
+    Session::remove('username'); // remove item 'username' 
+    
+    Session::clear(); // remove todos items da sessão 
+    
+    Session::invalidate( int lifeTime); // invalida as sessões após um tempo determinado  
+       </code>
+</pre>
+
+
+                    <br>
+                    <h5 id="flash" class="ttl">Flash</h5>
+
+                    <pre>
+  <code class="p-0">
+    Flash::all(); // retorna todos os dados de sessão flash 
+
+    Flash::set('username', 'jane doe'); // adiciona um novo item as sessões flash 
+       
+    Flash::get('username'); // retorna o valor da sessão 'username' das sessões flash ( após essa instrução o item 'username' será deletado ) 
+    
+    Flash::peek('username'); // retorna item 'username' das sessões flash ( sem deletação ) 
+       
+    Flash::has('username'); // retorna se o item 'username' está no presente nas sessões flash    
+    
+    Flash::clear(); // remove todos items da sessão flash 
+  </code>
+</pre>
+
+
+                    <br>
+                    <h5 id="cookie" class="ttl">Cookie</h5>
+
+                    <pre>
+  <code class="p-0">
+    Cookie::all(); // retorna todos os cookies 
+
+    Cookie::set('username', 'jane doe'); // adiciona um novo item aos cookies 
+       
+    Cookie::get('username'); // retorna o valor da sessão 'username' dos cookies
+    
+    Cookie::peek('username'); // retorna item 'username' dos cookies  
+       
+    Cookie::has('username'); // retorna se o item 'username' está no presente nos cookies    
+    
+    Cookie::clear(); // remove todos os cookies  
+  </code>
+</pre>
+
+                    <br>
+                    <h5 id="uploadedFile" class="ttl">Uploaded File</h5>
+
+                    <pre>
+  <code class="p-0">
+     $f = UploadedFile::get('picture');
+
+     $mime = $f->getClientMimeType();
+     $extension = $f->getClientOriginalExtension();
+     $fname = $f->getClientOriginalName();
+
+     // move
+     $new_name = md5( timer()->curTimestamp() );
+     $f->move('/uploads', $new_name);
+ </code>
+</pre>
+
+                    <br>
+
+                    <h5 id="schema" class="ttl">Schema</h5>
+
+                    <pre>
+  <code class="p-0">
+    // create a new database
+    Schema::CreateSchemaIfNotExists('zeero_db' , 'utf8');
+
+    // create a new table 
+    $dropIfExists = true;
+
+    Schema::create('user' , function( Table $table ){
+        // table definition 
+    } , $dropIfExists);
+
+    // alter a table
+    Schema::alter('user' , function( Alter $table ){
+        // table alteration 
+    });
+
+    // drop a table 
+    $ignoreKeys = true;
+
+    Schema::drop('user' , $ignoreKeys);
+
+    // drop a database 
+    Schema::dropSchema('zeero_db');
+
+    // drop a table if exists
+    $ignoreKeys = true;
+
+    Schema::dropIfExists('user' , $ignoreKeys);
+    
+    // truncate a table
+    $ignoreKeys = false;
+
+    Schema::truncate('user' , $ignoreKeys); 
+  </code>
+</pre>
+
+                    <br>
+
+                    <h5>Referência das classes <i>Table</i> e <i>Alter</i> </h5>
+                    <br>
+
+                    <br>
+                    <h5>Metódos da classe Table </h5>
+                    <br>
+                    <div class="row">
+                        <div class="col col-12 col-md-3 col-lg-3">
+                            <table class="table">
+                                <tr>
+                                    <td>string( name )</td>
+                                </tr>
+                                <tr>
+                                    <td>char( name )</td>
+                                </tr>
+                                <tr>
+                                    <td>text( name )</td>
+                                </tr>
+                                <tr>
+                                    <td>tinyText( name )</td>
+                                </tr>
+                                <tr>
+                                    <td>mediumText( name )</td>
+                                </tr>
+                                <tr>
+                                    <td>longText( name )</td>
+                                </tr>
+                                <tr>
+                                    <td>blob( name )</td>
+                                </tr>
+                                <tr>
+                                    <td>autoIncrement( name = 'ID' )</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!--  -->
+                        <div class="col col-12 col-md-3 col-lg-3">
+                            <table class="table">
+                                <tr>
+                                    <td>tinyInt( name )</td>
+                                </tr>
+                                <tr>
+                                    <td>smallInt( name )</td>
+                                </tr>
+                                <tr>
+                                    <td>mediumInt( name )</td>
+                                </tr>
+                                <tr>
+                                    <td>int( name )</td>
+                                </tr>
+                                <tr>
+                                    <td>bigInt( name )</td>
+                                </tr>
+                                <tr>
+                                    <td>uuid( name='id' )</td>
+                                </tr>
+                                <tr>
+                                    <td>timesTamps()</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!--  -->
+                        <div class="col col-12 col-md-3 col-lg-3">
+                            <table class="table">
+                                <tr>
+                                    <td>datetime( name )</td>
+                                </tr>
+                                <tr>
+                                    <td>timestamp( name )</td>
+                                </tr>
+                                <tr>
+                                    <td>time( name )</td>
+                                </tr>
+                                <tr>
+                                    <td>date( name )</td>
+                                </tr>
+                                <tr>
+                                    <td>year( name )</td>
+                                </tr>
+                                <tr>
+                                    <td>charset( charset )</td>
+                                </tr>
+                                <tr>
+                                    <td>engine( engine )</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!--  -->
+                        <div class="col col-12 col-md-3 col-lg-3">
+                            <table class="table">
+                                <tr>
+                                    <td>float( name , digits )</td>
+                                </tr>
+                                <tr>
+                                    <td>double( name , digits )</td>
+                                </tr>
+                                <tr>
+                                    <td>real( name , digits )</td>
+                                </tr>
+                                <tr>
+                                    <td>enum( name , values )</td>
+                                </tr>
+                                <tr>
+                                    <td>set( name , values )</td>
+                                </tr>
+                                <tr>
+                                    <td>primaryKey( )</td>
+                                </tr>
+                                <tr>
+                                    <td>foreign_key( name , field , reference , onDelete , onUpdate )</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <br>
+                    <h5>Metódos Modificadores</h5>
+
+                    <table class="table">
+                        <tr>
+                            <td>size( size )</td>
+                        </tr>
+                        <tr>
+                            <td>nullable()</td>
+                        </tr>
+                        <tr>
+                            <td>unsigned()</td>
+                        </tr>
+                        <tr>
+                            <td>after( field ) </td>
+                        </tr>
+                        <tr>
+                            <td>before( field ) </td>
+                        </tr>
+                        <tr>
+                            <td>default( value )</td>
+                        </tr>
+                    </table>
+
+                    <br>
+
+                    <h5>Metódos da classe Alter </h5>
+                    <br>
+
+                    <table class="table">
+                        <tr>
+                            <td>add( closure )</td>
+                        </tr>
+                        <tr>
+                            <td>addIndex( type , name, column )</td>
+                        </tr>
+                        <tr>
+                            <td>modify( closure )</td>
+                        </tr>
+                        <tr>
+                            <td>change( closure , newname )</td>
+                        </tr>
+                        <tr>
+                            <td>dropColumn( column )</td>
+                        </tr>
+                        <tr>
+                            <td>rename( newname )</td>
+                        </tr>
+                        <tr>
+                            <td>dropIndex( indexname )</td>
+                        </tr>
+                        <tr>
+                            <td>dropPrimary()</td>
+                        </tr>
+                    </table>
+
+                    <br>
+
+                    <pre>
+  <code class="p-0">
+    Schema::create('user' , function( Table $table ){
+        $table->autoIncrement('user_id');
+        $table->string('username')->size(255);
+        $table->string('password')->size(255);
+        $table->string('email')->unique();
+        $table->datetime('created_at')->nullable();
+       
+        $table->engine('InnoDB');
+        $table->charset('utf8');
+    });
+</code>
+</pre>
+
+
+                    <pre class="ft-syntax-highlight mt-4 mb-5 p-0" data-syntax-theme="vbgreen">
+  <code class="p-0">
+    Schema::alter('user' , function( Alter $table ){
+  
+        //add a new column
+        $table->add(function(Table $t){
+          $t->string('city')->size(100); 
+        });
+       
+        //add new indexes
+        $table->addIndex('index' , 'index_name' , 'name');
+        $table->addIndex('index' , 'index_name' , ['name' , 'city']);
+       
+        //modify the column
+        $table->modify(function(Table $t){
+          $t->string('city')->size(200); 
+        });
+        
+        //modify and rename the column
+        $table->change(function(Table $t){
+          $t->string('city')->size(200); 
+        } , 'city_name');
+       
+       
+        $table->dropColumn('city_name');
+       
+        $table->rename('user_table');
+        $table->dropIndex('index_name');
+       
+        $table->dropPrimary();
+       
+    }); 
+</code>
+</pre>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <script src="../assets/css/highlight/highlight.min.js"></script>
+    <script src="../assets/css/highlight/php.min.js"></script>
+    <script src="../assets/js/scripts-min.js"></script>
+</body>
+
+</html>

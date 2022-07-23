@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="zeero framework, zeero fw, php framework, zeero, zeero php">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>
+		Zeero Framework - Roteador
+	</title>
+
+	<link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/all.min.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/style.min.css">
+	<link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/v4-shims.min.css">
+
+	<link rel="stylesheet" href="../assets/css/highlight/atom-one-dark-reasonable.min.css">
+
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+	<header class="px-5 p-2" id="pg-header">
+		<div class="d-flex align-items-center justify-content-between">
+			<h4 id="title">ZEERO
+				<span class="bt-text">FRAMEWORK</span>
+			</h4>
+			<div>
+				<a href="#" class="btn">
+					<i class="fa fa-github"></i>
+					<span class="bt-text">
+						REPOSITÓRIO
+					</span>
+				</a>
+				<a href="#" class="btn">
+					<i class="fa fa-code"></i>
+					<span class="bt-text">
+						DESENVOLVEDOR
+					</span>
+				</a>
+				<button class="btn" id="barsBtn" onclick="openSidebar()">
+					<i class="fa fa-bars"></i>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="p-2 text-center" id="sections">
+		<a href="../index.html" class="sct">INTRODUÇÃO</a>
+		<a href="../routing/routes.html" class="sct" id="active">ROUTING</a>
+		<a href="../database/zeero-orm.html" class="sct">DATABASE</a>
+		<a href="../core/facades.html" class="sct">CORE</a>
+		<a href="../zeero-cli.html" class="sct">ZCLI</a>
+
+
+	</div>
+
+	<section class="" id="sct-content">
+
+		<div class="row m-0" id="grid">
+			<!-- sidebar -->
+			<div class="col col-12 col-md-2 col-lg-2" id="sidebar">
+				<div class="p-1">
+
+					<div id="onMobile" class="navbar mb-3 text-muted">
+						<h4 class="m-0">ZEERO DOCS</h4>
+						<button class="btn text-muted" onclick="openSidebar()">
+							<i class="fa fa-times fa-2x"></i>
+						</button>
+					</div>
+
+
+
+
+					<a href="../routing/routes.html" class="sct">ROTAS</a>
+
+					<a href="http-responses.html">RESPONSE</a>
+
+					<a href="router.html" id="active">ROUTER</a>
+
+					<a href="form-validator.html">FORM VALIDATOR</a>
+
+					<a href="json-resources.html">JSON RESOURCES</a>
+
+					<a href="error-page.html">ERROR PAGE</a>
+
+				</div>
+			</div>
+
+			<!-- content -->
+			<div class="col col-12 col-lg-10 col-md-10" id="content-div">
+
+				<div class="px-3 mt-2 content">
+					<h5 id="state" class="ttl">
+					</h5>
+					<li>ROUTER</li>
+
+					<br>
+
+					<p>O Router disponibliza dois metódos:
+					</p>
+					<ul>
+						<li>NotFoundAction - para definir a ação após uma rota não registrada</li>
+						<li>UnauthorizedAction - para definir a ação após uma rota sem autorização</li>
+					</ul>
+
+					<p>A função anónima passada ao metódo
+						<b>UnauthorizedAction</b>
+						será chamado com um argumento do
+						tipo
+						<i>int</i>
+						que corresponde ao tipo de erro de autorização ocorrido:
+					</p>
+
+					<ul class="list-group">
+						<li class="list-group-item">
+							<b>1</b>
+							- token inválido
+						</li>
+						<li class="list-group-item">
+							<b>2</b>
+							- requer usuário logado
+						</li>
+						<li class="list-group-item">
+							<b>3</b>
+							- requer usuário administrador logado
+						</li>
+						<li class="list-group-item">
+							<b>4</b>
+							- nível usuário não permitido
+						</li>
+					</ul>
+
+					<br>
+					<p>A instância de
+						<b>Router</b>
+						assim como as definições desses metódos encontram-se no arquivo
+						<b>router.php</b>
+						no directório
+						<b>App</b>
+						.
+					</p>
+
+					<pre>
+    <code class="p-0">
+        // escrever NOT FOUND para um rota não registrada
+        $router->NotFoundAction(function(){
+            echo "NOT FOUND";
+        });
+     
+        // despachar a rota de acordo ao tipo do erro
+        $router->UnauthorizedAction(function($id){
+            if($id == 1) echo "token invalido";
+
+            if($id == 2) echo "apenas usuarios logados";
+
+            if($id == 3) echo "apenas usuarios administradores";
+
+            if($id == 4) echo "sem permissão";
+        }); 
+    </code>
+  </pre>
+
+					<h5 class="ttl">
+						Token Validator
+					</h5>
+
+					<p>Esta funcionalidade permite a criação de um
+						<b>validador</b>
+						de requisições, é praticamente uma
+						função que serve para validar paramêtros de uma rota.
+						É útil para o caso de não precisar validar dados num Controller por exemplo, já que
+						é geralmente usado para validação de
+						*tokens , como por exemplo
+						<b>chave de uma API</b>.
+					</p>
+
+					<p>
+						Para usar esta funcionalidade , basta usar o metódo
+						<b>
+							<i>addTokenValidator</i>
+						</b>
+						que qualquer
+						objecto
+						<i>Zeero\Router\Route</i>
+						disponibliza. Ela recebe dois argumentos:
+						<b>nome do
+							validador</b>
+						e o
+						<b>nome do paramêtro da validação</b>
+						( o mesmo que deverá conter na
+						requisição ).</p>
+
+					<p>Apartir do nome do paramêtro a ser validado , o
+						<i>Router</i>
+						irá procurar pelo seu valor, nos
+						formulários GET e POST, paramêtros da rota, bem como nos
+						<i>Headers</i>
+						, caso não encontre,
+						automáticamente o
+						<i>Router</i>
+						considera a requisição como
+						<b>Unauthorized</b>
+						( sem
+						autorização ).
+					</p>
+
+					<pre class="mt-4"><code class="">
+            $app->AddTokenValidator('api-key', 'key', function ($fromUser) {
+                return $fromUser == '123456';
+            });
+      </code>
+    </pre>
+
+					<p>Após definição do validador , este poderá ser usado através do metódo
+						<b>
+							<i>validToken</i>
+						</b>
+						de
+						qualquer rota , ou em grupos de rotas através do atributo
+						<i>token</i>.
+					</p>
+
+
+					<pre class="mt-4"><code class="">
+            $app->post('/posts' , ['' , ''])->validToken('api-key');
+            $app->group(['token' => 'api-key' , function(){});
+  </code>
+                </pre>
+
+					<br>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<script src="../assets/css/highlight/highlight.min.js"></script>
+	<script src="../assets/css/highlight/php.min.js"></script>
+	<script src="../assets/js/scripts-min.js"></script>
+</body>
+
+</html>

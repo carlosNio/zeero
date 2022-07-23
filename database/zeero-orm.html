@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="zeero framework, zeero fw, php framework, zeero, zeero php">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>
+		Zeero Framework - ORM
+	</title>
+
+	<link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/all.min.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/style.min.css">
+	<link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/v4-shims.min.css">
+
+	<link rel="stylesheet" href="../assets/css/highlight/atom-one-dark-reasonable.min.css">
+
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+	<header class="px-5 p-2" id="pg-header">
+		<div class="d-flex align-items-center justify-content-between">
+			<h4 id="title">ZEERO
+				<span class="bt-text">FRAMEWORK</span>
+			</h4>
+			<div>
+				<a href="#" class="btn">
+					<i class="fa fa-github"></i>
+					<span class="bt-text">
+						REPOSITÓRIO
+					</span>
+				</a>
+				<a href="#" class="btn">
+					<i class="fa fa-code"></i>
+					<span class="bt-text">
+						DESENVOLVEDOR
+					</span>
+				</a>
+				<button class="btn" id="barsBtn" onclick="openSidebar()">
+					<i class="fa fa-bars"></i>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="p-2 text-center" id="sections">
+		<a href="../index.html" class="sct">INTRODUÇÃO</a>
+		<a href="../routing/routes.html" class="sct">ROUTING</a>
+		<a href="../database/zeero-orm.html" class="sct" id="active">DATABASE</a>
+		<a href="../core/facades.html" class="sct">CORE</a>
+		<a href="../zeero-cli.html" class="sct">ZCLI</a>
+
+
+	</div>
+
+	<section class="" id="sct-content">
+
+		<div class="row m-0" id="grid">
+			<!-- sidebar -->
+			<div class="col col-12 col-md-2 col-lg-2" id="sidebar">
+				<div class="p-1">
+
+					<div id="onMobile" class="navbar mb-3 text-muted">
+						<h4 class="m-0">ZEERO DOCS</h4>
+						<button class="btn text-muted" onclick="openSidebar()">
+							<i class="fa fa-times fa-2x"></i>
+						</button>
+					</div>
+
+					<a href="../database/zeero-orm.html" id="active" class="sct">ORM</a>
+
+					<a href="query-builders.html">QUERY BUILDER</a>
+
+					<a href="table-migrations.html">MIGRATIONS</a>
+
+					<a href="seeds.html">SEEDS</a>
+
+				</div>
+			</div>
+
+			<!-- content -->
+			<div class="col col-12 col-lg-10 col-md-10" id="content-div">
+
+				<div class="px-3 mt-2 content">
+					<h5 class="ttl my-4">
+						ORM
+					</h5>
+
+					<p>Utilizar um ORM te permite manipular tabelas na base de dados através de uma interface orientada
+						a objectos, em que uma classe do ORM está representando uma tabela da base de dados e
+						consequentemente suas instâncias os registros dessa tabela.
+					</p>
+					<br>
+					<p>As classes que representam tabelas na base de dados são chamados de
+						<b>Modelos</b>
+						( M do MVC ) e
+						esses se extendem da classe abstrata
+						<b>Zeero\DataBase\Model</b>
+						que implementa um conjunto de
+						funcionalidades importantes para manipulação e persistência dos dados.
+					</p>
+					<br>
+
+					<h5 class="ttl" id="create">
+					</h5>
+					<li>
+						CRIAÇÃO DE REGISTROS
+					</li>
+
+					<br>
+
+					<table class="table table-responsive bg-light">
+						<tr class="bg-primary text-light">
+							<th>Método</th>
+							<th>Usado Para</th>
+						</tr>
+						<tr>
+							<td>create</td>
+							<td>Criar registros com os dados passados num array associativo , retorna
+								<b>true</b>
+								caso
+								sucesso e
+								<b>null</b>
+								caso contrário.
+							</td>
+						</tr>
+						<tr>
+							<td>save</td>
+							<td>Criar registros com dados passados num array associativo ou capturados dos atributos ,
+								retorna
+								<b>int</b>
+								(last inserted id)
+								caso sucesso e
+								<b>null</b>
+								caso não haja atributo auto incremento.
+							</td>
+						</tr>
+					</table>
+					<br>
+
+					<pre>
+      <code class="p-0">
+    // via *create()
+   Post::create([
+    	 'body' => 'a big text'
+    	 'user_id' => 14,
+    	 'title' => 'The Art of Programming',
+    ]); 
+
+   // via *save()
+    $p = new Post;
+    $p->text = "a big text";
+    $p->user_id = 14;
+    $p->title = 'The Art of Programming';
+    $p->save();
+      </code>
+       </pre>
+
+					<h5 class="ttl mt-0" id="read">
+					</h5>
+					<li>
+						CONSULTA DE REGISTROS
+					</li>
+
+					<br>
+
+					<table class="table table-responsive bg-light">
+						<tr class="bg-primary text-light">
+							<th>Método</th>
+							<th>Usado Para</th>
+						</tr>
+						<tr>
+							<td>all</td>
+							<td>Retornar todos os registros</td>
+						</tr>
+						<tr>
+							<td>paginate</td>
+							<td>Paginar Registros</td>
+						</tr>
+						<tr>
+							<td>count</td>
+							<td>Retornar o número de registros</td>
+						</tr>
+						<tr>
+							<td>countBy</td>
+							<td>Retornar o número de registros que satisfazem a uma condição</td>
+						</tr>
+						<tr>
+							<td>has</td>
+							<td>Retornar
+								<b>true</b>
+								se existem registros que satisfazem a uma condição</td>
+						</tr>
+						<tr>
+							<td>first</td>
+							<td>Retornar o primeiro registro (condição: opcional)
+							</td>
+						</tr>
+						<tr>
+							<td>last</td>
+							<td>Retornar o último registro (condição: opcional)
+							</td>
+						</tr>
+						<tr>
+							<td>atPosition</td>
+							<td>Retornar o enésimo registro ( n: requerido , condição: opcional)
+							</td>
+						</tr>
+						<tr>
+							<td>firstOrCreate</td>
+							<td>Retornar o primeiro registro que satisfaz uma condição caso contrário cria um novo
+								(condição: requerido)
+							</td>
+						</tr>
+						<tr>
+							<td>find</td>
+							<td>Retornar registros que satisfazem a uma condição</td>
+						</tr>
+						<tr>
+							<td>findOne</td>
+							<td>Retornar o primeiro registro (condição: requerida)
+							</td>
+						</tr>
+						<tr>
+							<td>findOrFail</td>
+							<td>Retornar registros que satisfazem a uma condição caso contrário emite um erro
+							</td>
+						</tr>
+						<tr>
+							<td>getUuid</td>
+							<td>Retornar uma string UUID</td>
+						</tr>
+
+					</table>
+
+					<br>
+					<pre>
+      <code class="p-0">       
+    Post::all(); // all records
+    Post::all('created_at'); // all records and specify the order
+      
+    Post::paginate(8); // get 8 records per page
+    Post::paginate(8, 2); // get 8 records per page and specify the current page number
+       
+    Post::count(); // get number of records
+    Post::countBy('user_id = 14'); // get number of records with a condiction
+       
+    Post::has('slug = "learn-php-8-programming" '); // get a boolean value if a record exists
+       
+    Post::first(); // get the first record
+    Post::first('user_id = ?', [14]); // get the first record using a condiction 
+    Post::first('user_id = ?' , [14] , 'created_at'); // get the first record using a condiction and specify the order
+    
+    Post::last(); // get the last record
+    Post::last('user_id = ?' , [14]); // get the last record using a condiction 
+    Post::last('user_id = ?' , [14] , 'created_at'); // get the last record using a condiction and specify the order   
+    </code>
+    </pre>
+
+
+					<pre>
+      <code class="p-0">       
+    Post::atPosition(2); // get the second record
+    Post::atPosition(2 , 'slug = "learn-php-8-programming"'); // get the second record using a condiction
+    
+    Post::firstOrCreate('user_id = ?', [14] , [ 'title' => 'programming' , 'user_id' => 14 ]); // get the first or create
+    
+    Post::find('user_id > 5'); // return array
+    Post::findOne('user_id = 5'); // return object
+    Post::findOrFail('user_id = 5'); // return object if success, else throw DbNotFoundException 
+    
+    Post::getUuid(); // get uuid string from the database server     
+      </code>
+      </pre>
+
+
+					<h5 class="ttl" id="update">
+					</h5>
+					<li>
+						ACTUALIZAÇÃO DE REGISTROS
+					</li>
+
+					<br>
+
+					<table class="table table-responsive bg-light">
+						<tr class="bg-primary text-light">
+							<th>Método</th>
+							<th>Usado Para</th>
+						</tr>
+						<tr>
+							<td>UpdateWhere</td>
+							<td>Actualizar registros estáticamente (condição: requerida)</td>
+						</tr>
+						<tr>
+							<td>update</td>
+							<td>Actualizar o registro ( instância do modelo ) ( condição: ausente )
+							</td>
+						</tr>
+					</table>
+
+					<pre>
+      <code class="p-0">
+    Post::UpdateWhere(['title' => 'new title'], 'title = old title'); 
+    
+    $p = Post::findOne('title = ?', ['php programming']); // find the record
+    $p->title = "ruby programming"; // update the title
+    $p->update(); // update the record      
+    </code>
+       </pre>
+
+					<h5 class="ttl" id="delete">
+					</h5>
+					<li>
+						DELETAÇÃO DE REGISTROS
+					</li>
+
+					<br>
+
+					<table class="table table-responsive bg-light">
+						<tr class="bg-primary text-light">
+							<th>Método</th>
+							<th>Usado Para</th>
+						</tr>
+						<tr>
+							<td>deleteWhere</td>
+							<td>Deletar registros estáticamente (condição: requerida)</td>
+						</tr>
+						<tr>
+							<td>delete</td>
+							<td>Deletar o registro ( instância do modelo ) ( condição: ausente )
+							</td>
+						</tr>
+					</table>
+
+					<pre>
+      <code class="p-0">
+    Post::DeleteWhere('user_id = 14');
+    Post::DeleteWhere('user_id = 14', [] , 5);
+       
+    $p = Post::findOne('title = ?', ['php programming']); // find the record
+    $p->delete(); // delete the record      
+     </code>
+       </pre>
+					<br>
+
+					<h5 class="ttl" id="utils">
+					</h5>
+					<li>
+						OUTROS
+					</li>
+
+					<br>
+
+					<table class="table table-responsive bg-light">
+
+						<tr class="bg-primary text-light">
+							<th>Método</th>
+							<th>Usado Para</th>
+						</tr>
+
+						<tr>
+							<td>only</td>
+							<td>Definir ou filtrar quais colunas irão estar presente nos registros</td>
+						</tr>
+
+						<tr>
+							<td>limit</td>
+							<td>Definir o número limite de registros do resultado
+							</td>
+						</tr>
+
+						<tr>
+							<td>skip</td>
+							<td>Definir ou filtrar quais colunas não irão estar presente nos registros</td>
+						</tr>
+
+					</table>
+
+					<pre>
+      <code class="p-0">
+    $p = Post::only(['user_id'])::find('title = ?', ['php programming']); // find the record and only get the *user_id  
+   
+    $p = Post::limit(5)::find('title = ?', ['php programming']); // find 5 records  
+    
+    $p = Post::skip(['user_id'])::find('title = ?', ['php programming']); // find the record and get all fields except the *user_id       
+     </code>
+    </pre>
+
+					<br>
+					<h5 class="ttl" id="relations">
+					</h5>
+					<li>
+						Relações
+					</li>
+
+					<br>
+
+					<p style="line-height: 30px;">Se na classe modelo estiver definido corretamente o atributo
+						*foreign_keys o ORM
+						apartir de cada instância ( registro de uma tabela ) irá trazer com ela (instância) todos
+						objectos relacionados,
+						isto é se uma classe
+						<b>A</b>
+						tem chave estrangeira apontando para um outra classe
+						<b>B</b>,
+						cada instância de
+						<b>A</b>
+						irá trazer consigo um novo
+						<b>attributo</b>
+						com o nome da classe
+						<b>B</b>
+						e que nela
+						constará o objecto
+						de
+						<b>B</b>
+						que esteja relacionado com a actual instância. Este processo não é repetitivo.
+					</p>
+					<br>
+					<p>Por Exempo , o campo
+						<b>*user_id</b>
+						é uma chave estrangeira que referencia a tabela ou modelo
+						<b>User</b>,
+						primeiramente vamos encontrar o último registro de
+						<b>Post</b>.
+					</p>
+
+
+					<pre>
+      <code class="p-0">
+    $post = Post::last(); // o post
+    $username = $post->user->name; // o user associado ao post
+      </code>
+    </pre>
+
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+
+	<script src="../assets/css/highlight/highlight.min.js"></script>
+	<script src="../assets/css/highlight/php.min.js"></script>
+	<script src="../assets/js/scripts-min.js"></script>
+</body>
+
+</html>

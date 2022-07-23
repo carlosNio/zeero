@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="zeero framework, zeero fw, php framework, zeero, zeero php">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>
+		Zeero Framework - Form Validator
+	</title>
+
+	<link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/all.min.css">
+	<link rel="stylesheet" href="../assets/css/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../assets/css/style.min.css">
+	<link rel="stylesheet" href="../assets/css/fontawesome-free-6.0.0-web/css/v4-shims.min.css">
+
+	<link rel="stylesheet" href="../assets/css/highlight/atom-one-dark-reasonable.min.css">
+
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+	<header class="px-5 p-2" id="pg-header">
+		<div class="d-flex align-items-center justify-content-between">
+			<h4 id="title">ZEERO
+				<span class="bt-text">FRAMEWORK</span>
+			</h4>
+			<div>
+				<a href="#" class="btn">
+					<i class="fa fa-github"></i>
+					<span class="bt-text">
+						REPOSITÓRIO
+					</span>
+				</a>
+				<a href="#" class="btn">
+					<i class="fa fa-code"></i>
+					<span class="bt-text">
+						DESENVOLVEDOR
+					</span>
+				</a>
+				<button class="btn" id="barsBtn" onclick="openSidebar()">
+					<i class="fa fa-bars"></i>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="p-2 text-center" id="sections">
+		<a href="../index.html" class="sct">INTRODUÇÃO</a>
+		<a href="../routing/routes.html" class="sct" id="active">ROUTING</a>
+		<a href="../database/zeero-orm.html" class="sct">DATABASE</a>
+		<a href="../core/facades.html" class="sct">CORE</a>
+		<a href="../zeero-cli.html" class="sct">ZCLI</a>
+
+
+	</div>
+
+	<section class="" id="sct-content">
+
+		<div class="row m-0" id="grid">
+			<!-- sidebar -->
+			<div class="col col-12 col-md-2 col-lg-2" id="sidebar">
+				<div class="p-1">
+
+					<div id="onMobile" class="navbar mb-3 text-muted">
+						<h4 class="m-0">ZEERO DOCS</h4>
+						<button class="btn text-muted" onclick="openSidebar()">
+							<i class="fa fa-times fa-2x"></i>
+						</button>
+					</div>
+
+
+
+
+					<a href="../routing/routes.html" class="sct">ROTAS</a>
+
+					<a href="http-responses.html">RESPONSE</a>
+
+					<a href="router.html">ROUTER</a>
+
+					<a href="form-validator.html" id="active">FORM VALIDATOR</a>
+
+					<a href="json-resources.html">JSON RESOURCES</a>
+
+					<a href="error-page.html">ERROR PAGE</a>
+
+				</div>
+			</div>
+
+			<!-- content -->
+			<div class="col col-12 col-lg-10 col-md-10" id="content-div">
+
+				<div class="px-3 mt-2 content">
+					<h5 class="ttl" id="routing">
+						Form Validator</h5>
+
+					<ul class="mt-3">
+						<li>
+							<a href="#in_line">
+								Validação em linha</a>
+						</li>
+						<li>
+							<a href="#request">
+								Validação via Requests
+							</a>
+						</li>
+						<li>
+							<a href="#redirect">
+								Redirecionamento</a>
+						</li>
+						<li>
+							<a href="#create">
+								Criando uma Regra de Validação</a>
+						</li>
+					</ul>
+
+					<p>Validator é a classe que serve para fazer validações em valores geralmente vindo de um
+						formulário ou
+						Requisição.</p>
+					<br>
+					<p>Na framework as validações de formulários ou paramêtros de Requisição são feitos por classes
+						<i>Requests</i>
+						que
+						se extendem de
+						<i>Validator</i>. Mas é possível usar o validator directamente.
+					</p>
+
+					<br>
+					<p>Para fazer a validação é preciso:</p>
+					<ul class="list-group my-3">
+						<li class="list-group-item">
+							<b>regras</b>
+							- um array associativo que representa as regras de
+							validação de cada
+							paramêtro .</li>
+						<li class="list-group-item">
+							<b>mensagens</b>
+							(opcional) - um array associativo contendo
+							mensagens de erros para cada
+							regra de validação.
+						</li>
+						<li class="list-group-item">
+							<b>dados</b>
+							- um array associativo com os dados para a validação.
+						</li>
+					</ul>
+
+					<br>
+					<h5 class="ttl mb-3">Regras de Validação</h5>
+
+					<p>
+						Uma regra de validação é internamente uma função definida na classe
+						<i>Validator</i>, que recebe
+						argumentos e
+						retorna booleano indiciando se a validação falhou ou foi um sucesso. Definir uma regra de
+						validação para um
+						paramêtro significa passar o valor desse mesmo paramêtro como o primeiro argumento para a
+						respectiva função, e
+						de seguida usar o valor da regra como o segundo argumento.
+					</p>
+					<br>
+					<p>Para definir uma regra de validação para um paramêtro do formulário, basta escrever o nome da
+						regra seguindo de
+						dois pontos ( : ) e depois o seu valor. Esse valor pode ser um valor simples ( string, número ),
+						vector ou uma
+						sequência de strings separada por vírgula , ao usar uma sequência de valores separados por
+						vírgulas implica
+						<i>dispersar</i>
+						cada valor da sequência como um argumento da função da regra, um exemplo desse
+						comportamento
+						ocorre na regra
+						<b>unique</b>
+						que espera por dois valores separados por vírgula ( o nome da
+						tabela e a coluna ).
+					</p>
+
+					<p class="my-3">A tabela abaixo mostra a lista de regras pré definidas da framework ( na estrutura
+						de função ) .
+					</p>
+
+					<table class="table">
+						<tr class="bg-primary text-light">
+							<th>regra</th>
+							<th>usado para</th>
+						</tr>
+						<tr>
+							<td>required( x )</td>
+							<td>retorna true se o valor está presente no array de dados e que não seja vázio.
+							</td>
+						</tr>
+						<tr>
+							<td>min( x , y )</td>
+							<td>retorna true se x é maior ou igual y
+							</td>
+						</tr>
+						<tr>
+							<td>max( x , y )</td>
+							<td>retorna true se x é menor ou igual y
+							</td>
+						</tr>
+						<tr>
+							<td>bigger( x , y )</td>
+							<td>retorna true se x é maior do que y
+							</td>
+						</tr>
+						<tr>
+							<td>lower( x , y )</td>
+							<td>retorna true se x é menor do que y
+							</td>
+						</tr>
+						<tr>
+							<td>in_range(x , y)</td>
+							<td>retorna true se x está no intervalo y[0] e y[1]
+							</td>
+						</tr>
+						<tr>
+							<td>out_range( x , a )</td>
+							<td>retorna true se x está fora do intervalo a[0] e a[1]
+							</td>
+						</tr>
+						<tr>
+							<td>in_list( x , a )</td>
+							<td>retorna true se x está no array *a
+							</td>
+						</tr>
+						<tr>
+							<td>pattern( x , y )</td>
+							<td>retorna true se x responde pela expressão regular y
+							</td>
+						</tr>
+						<tr>
+							<td>same( x , y )</td>
+							<td>retorna true se x é idêntico a y
+							</td>
+						</tr>
+						<tr>
+							<td>dif( x , y )</td>
+							<td>retorna true se x não é idêntico a y
+							</td>
+						</tr>
+						<tr>
+							<td>unique( t , c, v )</td>
+							<td>retorna true se o valor *v não existe em nenhum registro da tabela *t no campo *c
+							</td>
+						</tr>
+						<tr>
+							<td>exists( t , c, v )</td>
+							<td>retorna true se o valor *v existe em algum registro da tabela *t no campo *c
+							</td>
+						</tr>
+					</table>
+
+					<br>
+					<h5>Exemplo de uso</h5>
+
+					<pre>
+          <code class="p-0">
+    $regras = [
+        'parametro-1' => 'required|min:13|in_list:[a,b,c]|in_range:[10,500]',
+        'parametro-2' => 'same:@parametro-1|pattern:[a-z0-9]+|unique:Table,Column
+    ];
+        </code>
+        </pre>
+
+					<h5 class="mt-0">Detalhes do Exemplo </h5>
+
+					<table class="table mt-4">
+						<tr class="bg-primary text-light">
+							<th>regra</th>
+							<th>significado</th>
+						</tr>
+
+						<tr>
+							<td> parametro-1.required </td>
+							<td> verificar se o valor de 'parametro' é nulo </td>
+						</tr>
+
+						<tr>
+							<td>parametro-1.min</td>
+							<td> verificar se o valor de 'parametro' é maior ou igual á 13 </td>
+						</tr>
+
+						<tr>
+							<td>parametro-1.in_list</td>
+							<td> verificar se o valor de 'parametro' é igual á *a ou *b ou *c </td>
+						</tr>
+
+						<tr>
+							<td>parametro-1.in_range</td>
+							<td> verificar se o valor de 'parametro' está no intervalo de 10 á 500 </td>
+						</tr>
+
+						<tr>
+							<td>parametro-2.same</td>
+							<td> verificar se o valor de 'parametro-2' é igual ao do 'parametro-1' </td>
+						</tr>
+
+						<tr>
+							<td>parametro-2.pattern</td>
+							<td> verificar se o valor de 'parametro-2' atende pela expressão regular '/^[a-z0-9]+$/'
+							</td>
+						</tr>
+
+						<tr>
+							<td>parametro-2.unique</td>
+							<td> verificar se o valor de 'parametro-2' não existe na table 'Table' na coluna 'Column'
+							</td>
+						</tr>
+
+					</table>
+
+					<p>Nota que ao usar <b>@ + nome de um paramêtro </b> como argumento de uma regra , significa
+						<i>importar</i> o valor desse paramêtro para a actual regra. </p>
+
+					<br>
+
+					<h5 class="ttl mb-3">Mensagem de Erros</h5>
+					<p>A Nomenclatura de mensagens de erros de validação segue o seguinte padrão: </p>
+
+					<pre>
+          <code class="p-0">
+    // [CAMPO] . [REGRA] = [MENSAGEM]  --individualmente 
+    // [REGRA] = [MENSAGEM]  --geral para todos os campos que usem a [REGRA] e se algum retornou *false 
+           
+    $messages = [
+        'required' => 'fill all fields',
+        'name.min' => 'at least {min} chars',
+        'id.pattern' => 'the ID must be numeric'
+    ];
+          </code>
+        </pre>
+
+					<div class="alert alert-primary">
+						<h5 class="ttl">NOTA</h5>
+						<p>Dentro da mensagem podemos acessar o valor dado a regra , colocando o nome da regra entre { }
+							.</p>
+					</div>
+
+					<pre>
+          <code class="p-0">
+    $rules = [
+        'name' => 'required|min:5|max:10',
+        'level' => 'required|in_list:[1,2,3]'
+    ];
+         
+    $messages = [
+        'required' => 'fill all fields',
+        'name.required' => 'you must fill the name field',
+        'name.min' => 'at least {min} chars and max {max} chars',
+        'id.in_list' => 'the ID must be one of {in_list} '
+    ];
+         
+    // * at least 5 chars and max 10 chars
+    // * the ID must be one of [1, 2, 3]  
+        </code>
+        </pre>
+
+					<h5 id="in_line" class="ttl">Validação em linha ( via Validator )</h5>
+
+					<pre>
+          <code class="p-0">
+    $rules = [
+        'name' => 'required|min:5',
+        'id' => 'required|pattern:number'
+    ];
+         
+    $messages = [
+        'required' => 'fill all fields',
+        'name.min' => 'at least {min} chars',
+        'id.pattern' => 'the ID must be numeric'
+    ];
+
+    $data = [
+        'name' => 'foo',
+        'id' => '5f0'
+    ];
+         
+    $validator = new Validator($rules , $messages);
+    $validator->make( $data ); 
+        </code>
+        </pre>
+
+					<h5 class="ttl"> Metódos do Validator </h5>
+
+					<table class="table table-hover mt-4">
+						<tr class="text-light bg-primary">
+							<th>Metódo</th>
+							<td>Finalidade</td>
+						</tr>
+
+						<tr>
+							<td>tests()</td>
+							<td>retorna um array com os booleanos de cada teste feito </td>
+						</tr>
+
+						<tr>
+							<td>fail()</td>
+							<td>retorna <i>true</i> se a validação falhou </td>
+						</tr>
+
+						<tr>
+							<td>success()</td>
+							<td>retorna <i>true</i> se a validação foi um sucesso </td>
+						</tr>
+
+						<tr>
+							<td>errors( withKey = true )</td>
+							<td>retorna um array contendo os erros dos testes falhados </td>
+						</tr>
+
+					</table>
+
+					<pre>
+          <code class="p-0">
+    $validator->fail(); // true 
+    $validator->success(); // false 
+          
+    $validator->tests();
+    // "name.required" => true , "name.min" => false ,"id.required" => true , "id.pattern" => false 
+         
+    $validator->errors();
+    // "name.min" => "at least 5 chars" , "id.pattern" => "the ID must be numeric" 
+         
+    $validator->errors(false);
+    // "at least 5 chars" , "the ID must be numeric"         
+          </code>
+        </pre>
+
+					<h5 id="request" class="ttl mb-4">Validação via Requests </h5>
+
+					<p>Nesse tipo de validação são usadas classes Requests , que residem no directório
+						<i>App/Controllers/Requests</i> .
+					</p>
+					<p>Essas classes preenchem o Validator com todos os dados do formulário ( GET , POST ) durante a
+						a chamada do <b>constructor</b> .</p>
+
+					<br>
+					<p>Esse tipo de classes devem possuir: </p>
+
+					<ul class="list-group my-3">
+						<li class="list-group-item"><b>rules() : array</b> - que retorna um array de regras de
+							validação.</li>
+						<li class="list-group-item"><b>messages() : array</b> - que retorna um array de erros de
+							validação.</li>
+						<li class="list-group-item"><b>redirectTo : string|null</b> - define a url para o
+							redirecionamento..</li>
+					</ul>
+
+					<br>
+					<p>Essa classe tem dois attributos especiais: </p>
+
+					<ul class="list-group">
+						<li class="list-group-item"><b>validator</b> - a instância de <i>Validator</i> que é usado na
+							validação. </li>
+						<li class="list-group-item"><b>form</b> - a instância de <a
+								href="../core/facades.html#form_request" class="sct">FormRequest</a> que
+							contém os dados do formulário.
+						</li>
+					</ul>
+					<br>
+
+					<pre>
+<code class="p-0">
+namespace App\Controllers\Requests;
+
+use Zeero\Core\Validator\Form;
+
+ class LoginRequest extends Form
+ {
+    protected $redirectTo = "/login";
+
+    public function rules()
+    {
+        return [
+	"nome" => "required|pattern:alfa_str",
+	"senha" => "required|min:6"
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            "required" => "preencha todos os campos",
+            "nome.pattern" => "nome inválido",
+            "senha.min" => "a senha deve ter no mínimo {min} carácters"
+        ];
+    }
+}            
+                </code>
+                      </pre>
+
+					<p>Podemos usar estes tipos de classes em <i>Controllers</i> ou despache de rotas via função
+						anónima. </p>
+
+					<pre>
+          <code class="p-0">
+    $app->post('/login' , function(LoginRequest $request){
+        // get the validator
+        $validator = $request->validator;
+                             
+        // get the form data
+        $form = $request->form;
+    }); 
+        </code>
+        </pre>
+
+					<h5 id="redirect" class="ttl">Redirecionamento</h5>
+					<br>
+
+					<p>Cada objecto <i>Request</i> disponibliza dois metódos para redirecionamento em caso de erros:
+					</p>
+					<ul class="list-group">
+						<li class="list-group-item"><b>redirectWithError()</b> - armazena os erros em uma sessão <a
+								href="../core/facades.html#flash" class="sct">Flash</a> (
+							_form_error ) e redireciona para a URL definida no atributo *redirectTo.</li>
+						<li class="list-group-item"><b>redirectWithoutError()</b> - redireciona para a URL definida no
+							atributo *redirectTo.
+						</li>
+					</ul>
+					<br>
+					<p>Caso não seja definido o atributo *redirectTo, o <i>Validator</i> irá retroceder para a URL
+						anterior. </p>
+
+					<pre>
+          <code class="p-0">
+    $app->post('/login' , function(LoginRequest $request){
+        // get the validator
+        $validator = $request->validator;
+                             
+        if($validator->fail()) {
+            return $request->redirectWithError();
+        }
+     
+        // get the form data
+        $form = $request->form;
+    });
+                </code>
+                    </pre>
+
+					<h5 class="ttl">Gerando uma classe Request via ZCLI</h5>
+					<br>
+
+					<div class="bg-dark p-2">
+						<code>
+							<span class="text-warning">php</span> zcli make:<span class="text-warning">request</span>
+							[NOME DA CLASSE]
+						</code>
+					</div>
+
+					<br>
+					<br>
+					<h5 class="topic ttl" id="create">Criando uma regra de validação</h5>
+					<br>
+
+					<p>Para a criar uma nova regra de validação deve se criar uma instância de <i>Rule</i> e
+						posteriormente registrá-la
+						na classe <i>Validator</i>. A classe <i>Rule</i> disponibliza o metódo estático <i>Builder</i>
+						que recebe dois
+						argumentos: </p>
+
+					<ul class="list-group">
+						<li class="list-group-item"> <b>nome</b> - o nome da regra a ser usado no validator. </li>
+						<li class="list-group-item"> <b>ação</b> - uma função anónima que deve retornar um booleano e
+							esperar por dois
+							argumentos ( 1 - o valor da
+							regra , 2 - o valor do paramêtro ). </li>
+					</ul>
+
+					<pre>
+                      <code class="p-0">
+	// criar
+	$rule = Rule::Builder('myRule', function (int $rule_var, $arg_var) {
+    	    return ($rule_var + $arg_var) >= 10;
+	});
+
+	// registrar
+	Validator::addRule( $rule );
+ 
+	$rules = [
+    	  'value' => 'required|pattern:number|myRule:5'
+	];
+    
+	$data = [
+    	  'value' => '7'
+	];
+ 
+	$validator = new Validator($rules);
+	$validator->make( $data );
+	$validator->success(); // true ( 7 + 5 >= 10 )
+        </code>
+        </pre>
+
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+
+	<script src="../assets/css/highlight/highlight.min.js"></script>
+	<script src="../assets/css/highlight/php.min.js"></script>
+	<script src="../assets/js/scripts-min.js"></script>
+</body>
+
+</html>
